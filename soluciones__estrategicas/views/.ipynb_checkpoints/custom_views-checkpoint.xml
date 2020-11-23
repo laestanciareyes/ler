@@ -11,7 +11,6 @@
                     <field name="nit"/>
                     <field name="nrc"/>
                     <field name="giro"/>
-                    <field name="nombrecomercial"/>
                     <field name="companysize"/>
                 </xpath>
             </data>
@@ -32,16 +31,17 @@
                     <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
-                    <field name="codigo_anterior" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="codigo_anterior"/>
                 </xpath>
                 <group>
-                    <group string="Registros" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="dui"/>
-                        <field name="fechadeexpediciondui"/>
-                        <field name="fechadeexpiraciondui"/>
+                    <group string="Registros">
+                        <field name="dui" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                        <field name="fechadeexpediciondui" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                        <field name="fechadeexpiraciondui" attrs="{'invisible': [('is_company', '=', True)]}"/>
                         <field name="nit"/>
                         <field name="nrc"/>
                         <field name="giro"/>
+                        <field name="nombrecomercial"/>
                         <field name="companysize"/>
                     </group>
                     <group string="Laboral" attrs="{'invisible': [('is_company', '=', True)]}">
