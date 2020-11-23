@@ -35,6 +35,7 @@
                     <field name="codigo_anterior"/>
                 </xpath>
                 <group>
+                    
                     <group string="Registros">
                         <field name="dui" attrs="{'invisible': [('is_company', '=', True)]}"/>
                         <field name="fechadeexpediciondui" attrs="{'invisible': [('is_company', '=', True)]}"/>
@@ -45,6 +46,7 @@
                         <field name="nombrecomercial"/>
                         <field name="companysize"/>
                     </group>
+                    
                     <group string="Laboral" attrs="{'invisible': [('is_company', '=', True)]}">
                         <field name="lugardetrabajo"/>
                         <field name="direcciondetrabajo"/>
