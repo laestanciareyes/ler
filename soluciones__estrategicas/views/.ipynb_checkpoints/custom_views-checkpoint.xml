@@ -120,6 +120,9 @@
                     <group string="CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
                         <field name="nombrecodeudor"/>
                         <field name="fechadenacimientocodeudor"/>
+                        <field name="edadcodeudor"/>
+                        <field name="telefonofijocodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="telefonocelularcodeudor" widget="phone" options="{'enable_sms': True}"/>
                         <field name="domiciliocodeudor"/>
                         <field name="tipodeviviendacodeudor"/>
                         <field name="duicodeudor"/>
