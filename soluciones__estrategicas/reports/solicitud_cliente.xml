@@ -1,621 +1,637 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+
     <template id="solicitud_cliente_template">
-        <t t-call="web.html_container">
-            <t t-foreach="docs" t-as="doc">
+        <!--<t t-name="web.preview_externalreport">
+            <t t-set="company" t-value="env.company"/>
+            <t t-call="web.html_container">
+                <t t-set="o" t-value="res_company"/>
                 <t t-call="web.external_layout">
-                    <div class="page" align="center">
-                        <center><strong><h3>Formulario de Información</h3></strong></center>
-                        <p></p>
-                        <table width="90%">
-                            <tr>
-                                <td colspan="2">
-                                    Fecha: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
-                                </td>
-                                <td>
-                                    Hecho Por: ________________ 
-                                </td>
-                                <td>
-                                    Revisado Por: __________________ 
-                                </td>
-                            </tr>
-                        </table>
-                        <p></p>
-                        <strong><u><h4>Datos personales del Cliente</h4></u></strong>
-                        <p></p>
-                        <table width="90%" >
-
-                            <tr height="40px">
-                                <td colspan="8" width="300px">
-                                    Nombre: <u><t t-esc="doc.name"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    Domicilio: <u><t t-esc="doc.street"/> <t t-esc="doc.street2"/> <t t-esc="doc.city"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="2">
-                                    Tipo de Vivienda: <u><t t-esc="doc.tipodevivienda"/></u>
-                                </td>
-                                <td colspan="2">
-                                    Edad:  <u><t t-esc="doc.edad"/> años</u>
-                                </td>
-                                <td colspan="2" align="right">
-                                    Fecha de Nacimiento:  <u><t t-esc="doc.fechadenacimiento" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="2">
-                                    DUI: <u><t t-esc="doc.dui"/></u>
-                                </td>
-                                <td colspan="2">
-                                    Fecha expedición: <u><t t-esc="doc.fechadeexpediciondui" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u> 
-                                </td>
-                                <td colspan="2" align="right">
-                                    Fecha de expiración: <u><t t-esc="doc.fechadeexpiraciondui" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}" /></u>
-                                </td>
-
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="2">
-                                    NIT: <u><t t-esc="doc.nit"/></u>
-                                </td>
-                                <td colspan="4">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajo"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    Dirección: <u><t t-esc="doc.direcciondetrabajo"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-
-                                <td colspan="3">
-                                    Tel. Fijo: <u><t t-esc="doc.phone"/></u>
-                                </td>
-                                <td colspan="2" align="center">
-                                    Celular: <u><t t-esc="doc.mobile"/></u>
-                                </td>
-                                <td colspan="3" align="right">
-                                    Tel. Trabajo: <u><t t-esc="doc.telefonotrabajo"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Ocupación: <u><t t-esc="doc.ocupacion"/></u>
-                                </td>
-                                <td colspan="5" align="right">
-                                    Salario: <u>$<t t-esc="'{0:,.2f}'.format(doc.salario)"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediato"/></u>
-                                </td>
-                                <td colspan="5" align="right">
-                                    Teléfono: <u><t t-esc="doc.telefonojefeinmediato"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    Ingresos Extras: <u><t t-esc="doc.ingresosextras"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre de la Madre:</strong> <u><t t-esc="doc.nombredelamadre"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodelamadre"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondelamadre"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelamadre"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelamadre"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelamadre"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelamadre"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre del Padre:</strong> <u><t t-esc="doc.nombredelpadre"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodelpadre"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondelpadre"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelpadre"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelpadre"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelpadre"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelpadre"/></u>
-                                </td>
-                            </tr>
-
-
-                        </table>
-                    </div>
-                    <p style="page-break-after:always;">   </p>
-                    <div class="page" allign="center">
-                        <table width="90%" >
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre del Conyuge:</strong> <u><t t-esc="doc.nombredeconyugue"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodeconyugue"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondeconyugue"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodeconyugue"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodeconyugue"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodeconyugue"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodeconyugue"/></u>
-                                </td>
-                            </tr>
-                        </table>
-                        <p></p>
-                        <strong><u>Referencias Familiares</u></strong>
-                        <table width="90%" >
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar1"/></u>
-                                </td>
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar1"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar1"/></u> 
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar2"/></u>
-                                </td>
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar2"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar2"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar2"/></u> 
-                                </td>
-                                
-                            </tr>
-                            
-                        </table>
-                        <p></p>
-                        <strong><u>Referencias Personales</u></strong>
-                        
-                        <table width="90%" >
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal1"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal1"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal1"/></u> 
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal2"/></u>
-                                </td>
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciapersonal2"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal2"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal2"/></u> 
-                                </td>
-                                
-                            </tr>
-                        </table>
-                        
-                    </div>
-                    <p></p>
-                    <p style="page-break-after:always;">   </p>
-                    <div class="page" allign="center">
-                        <strong><u>Datos Personales del codeudor</u></strong>
-                        
-                        <table width="90%" >
-
-                            <tr height="40px">
-                                <td colspan="8" width="300px">
-                                    Nombre: <u><t t-esc="doc.nombrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    Domicilio: <u><t t-esc="doc.domiciliocodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="2">
-                                    Tipo de Vivienda: <u><t t-esc="doc.tipodeviviendacodeudor"/></u>
-                                </td>
-                                <td colspan="2">
-                                    Edad:  <u><t t-esc="doc.edadcodeudor"/> años</u>
-                                </td>
-                                <td colspan="2" align="right">
-                                    Fecha de Nacimiento:  <u><t t-esc="doc.fechadenacimientocodeudor" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="2">
-                                    DUI: <u><t t-esc="doc.dui"/></u>
-                                </td>
-                                <td colspan="2">
-                                    Fecha expedición: <u><t t-esc="doc.fechadeexpedicionduicodeudor" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u> 
-                                </td>
-                                <td colspan="2" align="right">
-                                    Fecha de expiración: <u><t t-esc="doc.fechadeexpiracionduicodeudor" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}" /></u>
-                                </td>
-
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="2">
-                                    NIT: <u><t t-esc="doc.nitcodeudor"/></u>
-                                </td>
-                                <td colspan="4">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajocodeudor"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    Dirección: <u><t t-esc="doc.direcciondetrabajocodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-
-                                <td colspan="3">
-                                    Tel. Fijo: <u><t t-esc="doc.telefonofijocodeudor"/></u>
-                                </td>
-                                <td colspan="2" align="center">
-                                    Celular: <u><t t-esc="doc.telefonocelularcodeudor"/></u>
-                                </td>
-                                <td colspan="3" align="right">
-                                    Tel. Trabajo: <u><t t-esc="doc.telefonotrabajocodeudor"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Ocupación: <u><t t-esc="doc.ocupacioncodeudor"/></u>
-                                </td>
-                                <td colspan="5" align="right">
-                                    Salario: <u>$<t t-esc="'{0:,.2f}'.format(doc.salariocodeudor)"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatocodeudor"/></u>
-                                </td>
-                                <td colspan="5" align="right">
-                                    Teléfono: <u><t t-esc="doc.telefonojefeinmediatocodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    Ingresos Extras: <u><t t-esc="doc.ingresosextrascodeudor"/></u>
-                                </td>
-
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre de la Madre:</strong> <u><t t-esc="doc.nombredelamadrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodelamadrecodeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondelamadrecodeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelamadrecodeudor"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelamadrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelamadrecodeudor"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelamadrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre del Padre:</strong> <u><t t-esc="doc.nombredelpadrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodelpadrecodeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondelpadrecodeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelpadrecodeudor"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelpadrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelpadrecodeudor"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelpadrecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            
-                        </table>
-                        
-                        
-                    <p style="page-break-after:always;">   </p>
-                    <div class="page" allign="center">
-                        <table width="90%" >
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre del Conyuge:</strong> <u><t t-esc="doc.nombredeconyuguecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodeconyuguecodeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondeconyuguecodeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodeconyuguecodeudor"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodeconyuguecodeudor"/></u>
-                                </td>
-                            </tr>
-
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodeconyuguecodeudor"/></u> 
-                                </td>
-                                <td colspan="5" align="right">    
-                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodeconyuguecodeudor"/></u>
-                                </td>
-                            </tr>
-                        </table>
-                        <p></p>
-                        <strong><u>Referencias Familiares</u></strong>
-                        <table width="90%" >
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar1codeudor"/></u>
-                                </td>
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1codeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar1codeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar1codeudor"/></u> 
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar2codeudor"/></u>
-                                </td>
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar2codeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar2codeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar2codeudor"/></u> 
-                                </td>
-                                
-                            </tr>
-                            
-                        </table>
-                        <p></p>
-                        <strong><u>Referencias Personales</u></strong>
-                        
-                        <table width="90%" >
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal1codeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1codeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal1codeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal1codeudor"/></u> 
-                                </td>
-                                
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td colspan="8">
-                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal2codeudor"/></u>
-                                </td>
-                            </tr>
-                            
-                            <tr height="40px">
-                                <td>
-                                    Teléfono: <u><t t-esc="doc.telefonodereferenciapersonal2codeudor"/></u>
-                                </td>
-                                <td colspan="7" align="right">
-                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal2codeudor"/></u>
-                                </td>
-                            </tr>
-                            <tr height="40px">
-                                <td colspan="3">
-                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal2codeudor"/></u> 
-                                </td>
-                                
-                            </tr>
-                        </table>
-                        
-                    </div>
-                        
-                    </div>
+                    <div class="page">
+                        <p>This is a sample of an external report.</p>-->
                     
+                
+                        <t t-set="company" t-value="env.company"/>
+                        <t t-call="web.html_container">
+                            <t t-foreach="docs" t-as="doc">
+                                <t t-call="web.external_layout_standard">
+                                    <!--<div class="page">-->
+                                        <center><strong><h3>Formulario de Información</h3></strong></center>
+                                        <p></p>
+                                        <table width="100%">
+                                            <tr  style="height:12px;">
+                                                <td colspan="2">
+                                                    Fecha: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%d/%m/%Y %H:%M')"/>
+                                                </td>
+                                                <td>
+                                                    Hecho Por: ________________ 
+                                                </td>
+                                                <td>
+                                                    Revisado Por: __________________ 
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p></p>
+                                        <strong><u>Datos personales del Cliente</u></strong>
+                                        <p></p>
+                                        <table width="100%" >
+
+                                            <tr style="height:12px;">
+                                                <td colspan="8" width="300px">
+                                                    Nombre: <u><t t-esc="doc.name"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="height:12px;">
+                                                <td colspan="8">
+                                                    Domicilio: <u><t t-esc="doc.street"/> <t t-esc="doc.street2"/> <t t-esc="doc.city"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="height:12px;">
+                                                <td colspan="2">
+                                                    Tipo de Vivienda: <u><t t-esc="doc.tipodevivienda"/></u>
+                                                </td>
+                                                <td colspan="2">
+                                                    Edad:  <u><t t-esc="doc.edad"/> años</u>
+                                                </td>
+                                                <td colspan="2" align="right">
+                                                    Fecha de Nacimiento:  <u><t t-esc="doc.fechadenacimiento" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="height:12px;">
+                                                <td colspan="2">
+                                                    DUI: <u><t t-esc="doc.dui"/></u>
+                                                </td>
+                                                <td colspan="2">
+                                                    Fecha expedición: <u><t t-esc="doc.fechadeexpediciondui" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u> 
+                                                </td>
+                                                <td colspan="2" align="right">
+                                                    Fecha de expiración: <u><t t-esc="doc.fechadeexpiraciondui" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}" /></u>
+                                                </td>
+
+
+                                            </tr>
+
+                                            <tr style="height:12px;">
+                                                <td colspan="2">
+                                                    NIT: <u><t t-esc="doc.nit"/></u>
+                                                </td>
+                                                <td colspan="4">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajo"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr style="height:12px;">
+                                                <td colspan="8">
+                                                    Dirección: <u><t t-esc="doc.direcciondetrabajo"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr style="height:12px;">
+
+                                                <td colspan="3">
+                                                    Tel. Fijo: <u><t t-esc="doc.phone"/></u>
+                                                </td>
+                                                <td colspan="2" align="center">
+                                                    Celular: <u><t t-esc="doc.mobile"/></u>
+                                                </td>
+                                                <td colspan="3" align="right">
+                                                    Tel. Trabajo: <u><t t-esc="doc.telefonotrabajo"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Ocupación: <u><t t-esc="doc.ocupacion"/></u>
+                                                </td>
+                                                <td colspan="5" align="right">
+                                                    Salario: <u>$<t t-esc="'{0:,.2f}'.format(doc.salario)"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediato"/></u>
+                                                </td>
+                                                <td colspan="5" align="right">
+                                                    Teléfono: <u><t t-esc="doc.telefonojefeinmediato"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    Ingresos Extras: <u><t t-esc="doc.ingresosextras"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre de la Madre:</strong> <u><t t-esc="doc.nombredelamadre"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodelamadre"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondelamadre"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelamadre"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelamadre"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelamadre"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelamadre"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre del Padre:</strong> <u><t t-esc="doc.nombredelpadre"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodelpadre"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondelpadre"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelpadre"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelpadre"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelpadre"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelpadre"/></u>
+                                                </td>
+                                            </tr>
+
+
+                                        </table>
+                                    <!--</div>-->
+                                    <p style="page-break-after:always;">   </p>
+                                    <!--<div class="page" allign="center">-->
+                                        <table width="100%" >
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre del Conyuge:</strong> <u><t t-esc="doc.nombredeconyugue"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodeconyugue"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondeconyugue"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodeconyugue"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodeconyugue"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodeconyugue"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodeconyugue"/></u>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p></p>
+                                        <strong><u>Referencias Familiares</u></strong>
+                                        <table width="100%" >
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar1"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar1"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar1"/></u> 
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar2"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar2"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar2"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar2"/></u> 
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+                                        <p></p>
+                                        <strong><u>Referencias Personales</u></strong>
+
+                                        <table width="100%" >
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal1"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal1"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal1"/></u> 
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal2"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciapersonal2"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal2"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal2"/></u> 
+                                                </td>
+
+                                            </tr>
+                                        </table>
+
+                                    <!--</div>-->
+                                    <p></p>
+                                    <p style="page-break-after:always;">   </p>
+                                    <!--<div class="page" allign="center">-->
+                                        <strong><u>Datos Personales del codeudor</u></strong>
+
+                                        <table width="100%" >
+
+                                            <tr height="40px">
+                                                <td colspan="8" width="300px">
+                                                    Nombre: <u><t t-esc="doc.nombrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    Domicilio: <u><t t-esc="doc.domiciliocodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="2">
+                                                    Tipo de Vivienda: <u><t t-esc="doc.tipodeviviendacodeudor"/></u>
+                                                </td>
+                                                <td colspan="2">
+                                                    Edad:  <u><t t-esc="doc.edadcodeudor"/> años</u>
+                                                </td>
+                                                <td colspan="2" align="right">
+                                                    Fecha de Nacimiento:  <u><t t-esc="doc.fechadenacimientocodeudor" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="2">
+                                                    DUI: <u><t t-esc="doc.dui"/></u>
+                                                </td>
+                                                <td colspan="2">
+                                                    Fecha expedición: <u><t t-esc="doc.fechadeexpedicionduicodeudor" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}"/></u> 
+                                                </td>
+                                                <td colspan="2" align="right">
+                                                    Fecha de expiración: <u><t t-esc="doc.fechadeexpiracionduicodeudor" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}" /></u>
+                                                </td>
+
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="2">
+                                                    NIT: <u><t t-esc="doc.nitcodeudor"/></u>
+                                                </td>
+                                                <td colspan="4">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajocodeudor"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    Dirección: <u><t t-esc="doc.direcciondetrabajocodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+
+                                                <td colspan="3">
+                                                    Tel. Fijo: <u><t t-esc="doc.telefonofijocodeudor"/></u>
+                                                </td>
+                                                <td colspan="2" align="center">
+                                                    Celular: <u><t t-esc="doc.telefonocelularcodeudor"/></u>
+                                                </td>
+                                                <td colspan="3" align="right">
+                                                    Tel. Trabajo: <u><t t-esc="doc.telefonotrabajocodeudor"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Ocupación: <u><t t-esc="doc.ocupacioncodeudor"/></u>
+                                                </td>
+                                                <td colspan="5" align="right">
+                                                    Salario: <u>$<t t-esc="'{0:,.2f}'.format(doc.salariocodeudor)"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatocodeudor"/></u>
+                                                </td>
+                                                <td colspan="5" align="right">
+                                                    Teléfono: <u><t t-esc="doc.telefonojefeinmediatocodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    Ingresos Extras: <u><t t-esc="doc.ingresosextrascodeudor"/></u>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre de la Madre:</strong> <u><t t-esc="doc.nombredelamadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodelamadrecodeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondelamadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelamadrecodeudor"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelamadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelamadrecodeudor"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelamadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre del Padre:</strong> <u><t t-esc="doc.nombredelpadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodelpadrecodeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondelpadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodelpadrecodeudor"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodelpadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodelpadrecodeudor"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodelpadrecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+
+                                        </table>
+
+
+                                    <p style="page-break-after:always;">   </p>
+                                    <!--<div class="page" allign="center">-->
+                                        <table width="100%" >
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre del Conyuge:</strong> <u><t t-esc="doc.nombredeconyuguecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodeconyuguecodeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondeconyuguecodeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Lugar de Trabajo: <u><t t-esc="doc.lugardetrabajodeconyuguecodeudor"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Dirección: <u><t t-esc="doc.direccionlugardetrabajodeconyuguecodeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Jefe Inmediato: <u><t t-esc="doc.jefeinmediatodeconyuguecodeudor"/></u> 
+                                                </td>
+                                                <td colspan="5" align="right">    
+                                                    Teléfono: <u><t t-esc="doc.telefonodeljefeinmediatodeconyuguecodeudor"/></u>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        <p></p>
+                                        <strong><u>Referencias Familiares</u></strong>
+                                        <table width="100%" >
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar1codeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1codeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar1codeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar1codeudor"/></u> 
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciafamiliar2codeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar2codeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciafamiliar2codeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciafamiliar2codeudor"/></u> 
+                                                </td>
+
+                                            </tr>
+
+                                        </table>
+                                        <p></p>
+                                        <strong><u>Referencias Personales</u></strong>
+
+                                        <table width="100%" >
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal1codeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciafamiliar1codeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal1codeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal1codeudor"/></u> 
+                                                </td>
+
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td colspan="8">
+                                                    <strong>Nombre:</strong> <u><t t-esc="doc.nombrereferenciapersonal2codeudor"/></u>
+                                                </td>
+                                            </tr>
+
+                                            <tr height="40px">
+                                                <td>
+                                                    Teléfono: <u><t t-esc="doc.telefonodereferenciapersonal2codeudor"/></u>
+                                                </td>
+                                                <td colspan="7" align="right">
+                                                    Domicilio: <u><t t-esc="doc.direcciondereferenciapersonal2codeudor"/></u>
+                                                </td>
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    Relación: <u><t t-esc="doc.relacionreferenciapersonal2codeudor"/></u> 
+                                                </td>
+
+                                            </tr>
+                                        </table>
+
+                                    <!--</div>-->
+
+                                    <!--</div>-->
+
+                                </t>
+                           </t>
+                        </t>
+        
+                    <!--</div>
                 </t>
-           </t>
-        </t>
+            </t>
+        </t>-->
     </template>
 </odoo>
