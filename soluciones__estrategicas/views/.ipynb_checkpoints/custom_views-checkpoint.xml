@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ej -->
+<odoo>
+    <record id="res_company_custom" model="ir.ui.view">
+        <field name="name">res.company.form</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="nit"/>
+                    <field name="nrc"/>
+                    <field name="giro"/>
+                    <field name="companysize"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    
+    <record id="res_partner_custom" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='vat']" position="after">
+                    
+                    <field name="tipodevivienda" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="fechadenacimiento" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="edad" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='category_id']" position="after">
+                    <field name="codigo_anterior" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                </xpath>
+                <group>
+                    <group string="Registros" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="dui"/>
+                        <field name="fechadeexpediciondui"/>
+                        <field name="fechadeexpiraciondui"/>
+                        <field name="nit"/>
+                        <field name="nrc"/>
+                        <field name="giro"/>
+                        <field name="companysize"/>
+                    </group>
+                    <group string="Laboral" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="lugardetrabajo"/>
+                        <field name="direcciondetrabajo"/>
+                        <field name="jefeinmediato"/>
+                        <field name="telefonotrabajo" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="telefonojefeinmediato" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="ocupacion"/>
+                        <field name="salario" widget="monetary"/>
+                        <field name="ingresosextras"/>
+                    </group>
+                    
+                    <group string="Datos de la Madre" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombredelamadre"/>
+                        <field name="telefonodelamadre" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondelamadre"/>
+                        <field name="lugardetrabajodelamadre"/>
+                        <field name="direccionlugardetrabajodelamadre"/>
+                        <field name="jefeinmediatodelamadre"/>
+                        <field name="telefonodeljefeinmediatodelamadre" widget="phone" options="{'enable_sms': True}"/>
+                    </group>
+                    
+                    <group string="Datos del Padre" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombredelpadre"/>
+                        <field name="telefonodelpadre" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondelpadre"/>
+                        <field name="lugardetrabajodelpadre"/>
+                        <field name="direccionlugardetrabajodelpadre"/>
+                        <field name="jefeinmediatodelpadre"/>
+                        <field name="telefonodeljefeinmediatodelpadre" widget="phone" options="{'enable_sms': True}"/>
+                    </group>
+                    
+                    <group string="Datos de Conyugue" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombredeconyugue"/>
+                        <field name="telefonodeconyugue" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondeconyugue"/>
+                        <field name="lugardetrabajodeconyugue"/>
+                    </group>
+                    <group attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="direccionlugardetrabajodeconyugue"/>
+                        <field name="jefeinmediatodeconyugue"/>
+                        <field name="telefonodeljefeinmediatodeconyugue" widget="phone" options="{'enable_sms': True}"/>
+                    </group>
+                    <group string="Referencia familiar #1" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciafamiliar1"/>
+                        <field name="telefonodereferenciafamiliar1" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar1"/>
+                        <field name="relacionreferenciafamiliar1"/>
+                    </group>
+                    <group string="Referencia familiar #2" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciafamiliar2"/>
+                        <field name="telefonodereferenciafamiliar2" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar2"/>
+                        <field name="relacionreferenciafamiliar2"/>
+                    </group>
+                    <group string="Referencia personal #1" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciapersonal1"/>
+                        <field name="telefonodereferenciapersonal1" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal1"/>
+                        <field name="relacionreferenciapersonal1"/>
+                    </group>
+                    <group string="Referencia personal #2" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciapersonal2"/>
+                        <field name="telefonodereferenciapersonal2" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal2"/>
+                        <field name="relacionreferenciapersonal2"/>
+                    </group>
+                                
+                    <group string="CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrecodeudor"/>
+                        <field name="fechadenacimientocodeudor"/>
+                        <field name="domiciliocodeudor"/>
+                        <field name="tipodeviviendacodeudor"/>
+                        <field name="duicodeudor"/>
+                        <field name="fechadeexpedicionduicodeudor"/>
+                        <field name="fechadeexpiracionduicodeudor"/>
+                        <field name="nitcodeudor"/>
+                    </group>
+                    <group string="Laboral CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="lugardetrabajocodeudor"/>
+                        <field name="direcciondetrabajocodeudor"/>
+                        <field name="jefeinmediatocodeudor"/>
+                        <field name="telefonotrabajocodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="telefonojefeinmediatocodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="ocupacioncodeudor"/>
+                        <field name="salariocodeudor" widget="monetary"/>
+                        <field name="ingresosextrascodeudor"/>
+                    </group>
+                    <group string="Datos de la Madre CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombredelamadrecodeudor"/>
+                        <field name="telefonodelamadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondelamadrecodeudor"/>
+                        <field name="lugardetrabajodelamadrecodeudor"/>
+                        <field name="direccionlugardetrabajodelamadrecodeudor"/>
+                        <field name="jefeinmediatodelamadrecodeudor"/>
+                        <field name="telefonodeljefeinmediatodelamadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                    </group>
+                    
+                    <group string="Datos del Padre CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombredelpadrecodeudor"/>
+                        <field name="telefonodelpadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondelpadrecodeudor"/>
+                        <field name="lugardetrabajodelpadrecodeudor"/>
+                        <field name="direccionlugardetrabajodelpadrecodeudor"/>
+                        <field name="jefeinmediatodelpadrecodeudor"/>
+                        <field name="telefonodeljefeinmediatodelpadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                    </group>
+                    
+                    <group string="Datos de Conyugue CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombredeconyuguecodeudor"/>
+                        <field name="telefonodeconyuguecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondeconyuguecodeudor"/>
+                        <field name="lugardetrabajodeconyuguecodeudor"/>
+                    </group>
+                    <group attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="direccionlugardetrabajodeconyuguecodeudor"/>
+                        <field name="jefeinmediatodeconyuguecodeudor"/>
+                        <field name="telefonodeljefeinmediatodeconyuguecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                    </group>
+                    <group string="Referencia familiar CODEUDOR #1" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciafamiliar1codeudor"/>
+                        <field name="telefonodereferenciafamiliar1codeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar1codeudor"/>
+                        <field name="relacionreferenciafamiliar1codeudor"/>
+                    </group>
+                    <group string="Referencia familiar CODEUDOR #2" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciafamiliar2codeudor"/>
+                        <field name="telefonodereferenciafamiliar2codeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar2codeudor"/>
+                        <field name="relacionreferenciafamiliar2codeudor"/>
+                    </group>
+                    <group string="Referencia personal CODEUDOR #1" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciapersonal1codeudor"/>
+                        <field name="telefonodereferenciapersonal1codeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal1codeudor"/>
+                        <field name="relacionreferenciapersonal1codeudor"/>
+                    </group>
+                    <group string="Referencia personal CODEUDOR #2" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="nombrereferenciapersonal2codeudor"/>
+                        <field name="telefonodereferenciapersonal2codeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal2codeudor"/>
+                        <field name="relacionreferenciapersonal2codeudor"/>
+                    </group>
+                    
+                    
+                    
+                </group>
+                
+                <xpath expr="//page[1]" position="before">
+                    <page string="Solicitudes de Crédito" default_focus="1" attrs="{'invisible': [('is_company', '=', True)]}">
+                        <field name="solicitudes_lineas" >
+                            <tree>
+                                <field name="cliente_id" invisible="1"/>
+                                <button name="imprimir_corrida_financiera" string="Imprimir Corrida Financiera" type="object" class="oe_highlight" />
+                                <field name="fechasolicitud"/>
+                                <field name="montodesolicitud" widget="monetary"/>
+                                <field name="montoaprobado" widget="monetary"/>
+                                <field name="montoanticipo" widget="monetary"/>
+                                <field name="numerodecuotas" options="{'type': 'number', 'step': 1}"/>
+                                <field name="porcentajedeinteresdelcredito" widget="percentpie" nolabel="1" string=""/>
+                                <field name="porcentajedeinteresmoratorio" widget="percentpie" nolabel="1"/>
+                                
+                                <field name="fechaInicio"/>
+                                <field name="fechaestatus"/>
+                                
+                                <field name="estatus"/>
+                                
+                            </tree>
+                            <form string="Solicitudes">
+                                <header>
+                                    <button name="imprimir_corrida_financiera" string="Imprimir Corrida Financiera" type="object" class="oe_highlight" />
+                                </header>
+                                <group string="Información para Solicitud" col="6" colspan="3">
+                                   <!-- <field name="solicitudes_id" invisible="1"/>-->
+                                    <field name="fechasolicitud"/>
+                                    <field name="montodesolicitud" widget="monetary"/>
+                                    <field name="montoaprobado" widget="monetary"/>
+                                    <field name="montoanticipo" widget="monetary"/>
+                                    <field name="montoprestado" widget="monetary" attrs="{'readonly': 1}"/>
+                                    <field name="numerodecuotas" options="{'type': 'number', 'step': 1}"/>
+                                    <field name="cuota" attrs="{'readonly': 1}" widget="monetary"/>
+                                    <field name="saldodespuesanticipo" attrs="{'readonly': 1}" widget="monetary"/>
+                                    
+                                    <field name="porcentajedeinteresdelcredito"/>
+                                        
+                                    
+                                    <field name="porcentajedeinteresmoratorio"/>
+                                
+                                    <field name="fechaInicio"/>
+                                    
+                                    <field name="fechaestatus"/>
+                                    <field name="estatus"/>
+                                    
+                                </group>
+                                <group>
+                                    <button name="generar_cuotas_credito" string="Generar Cuotas" type="object" class="oe_highlight"/>
+                                    <h2>Cuotas</h2>
+                                </group>
+                                <!--<group string="Cuotas" attrs="{'invisible': [('estatus', '!=', 'A')]}">-->
+                                    <field name="solicitudes_lineas_cuotas" string="" >
+                                        <tree>
+                                            <field name="cuotanumero"/>
+                                            <field name="cuotafecha"/>
+                                            <field name="cuotafechapagada"/>
+                                            <field name="cuotasaldoinicial" widget="monetary"/>
+                                            <field name="cuotamonto" widget="monetary"/>
+                                            <field name="cuotasaldofinal" widget="monetary"/>
+                                            <field name="cuotamontorecibido" widget="monetary"/>
+                                        
+                                        </tree>
+                                    </field>
+                                <!--</group>-->
+                                    
+                                    
+                                    
+                                
+                            </form>
+                        </field>
+                    </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+      
+</odoo>
+    
