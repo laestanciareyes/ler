@@ -106,6 +106,7 @@ class AgregarCamposPartner(models.Model):
     
     
     fechadenacimientocodeudor = fields.Date('Fecha de Nacimiento      ')
+    edadcodeudor = fields.Integer('Edad  ')
     domiciliocodeudor = fields.Char('Domicilio      ')
     duicodeudor = fields.Char('DUI ')
     nitcodeudor = fields.Char('NIT ')
@@ -116,6 +117,8 @@ class AgregarCamposPartner(models.Model):
     
     lugardetrabajocodeudor = fields.Char('Lugar de Trabajo      ')
     direcciondetrabajocodeudor = fields.Char('Dirección      ')
+    telefonofijocodeudor = fields.Char('Teléfono Fijo ')
+    telefonocelularcodeudor = fields.Char('Teléfono Celular   ')
     jefeinmediatocodeudor = fields.Char('Jefe Inmediato      ')
     telefonotrabajocodeudor = fields.Char('Telefono Trabajo      ')
     telefonojefeinmediatocodeudor = fields.Char('Teléfono Jefe Inmediato      ')
@@ -168,6 +171,11 @@ class AgregarCamposPartner(models.Model):
     relacionreferenciapersonal2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación            ')
     
     solicitudes_lineas = fields.One2many('solicitudes.credito.lineas','cliente_id')
+    
+    def imprimir_formulario(self):
+        _logger.info("imprimir_formulario_clientes")
+
+        return self.env.ref('soluciones__estrategicas.solicitud_credito').report_action(self)
 
 class SolicitudesCredito(models.Model):
     _name = 'solicitudes.credito.lineas'
