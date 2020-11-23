@@ -34,6 +34,8 @@ class AgregarCamposPartner(models.Model):
     nit = fields.Char('NIT')
     nrc = fields.Char('NRC' )
     giro = fields.Char('Giro')
+    nombrecomercial = fields.Char('Nombre Comercial')
+    
     companysize = fields.Selection([('Pequeña', 'Pequeña'), ('Mediana', 'Mediana'), ('Grande', 'Grande')],'Tamaño Empresa')
     fechadenacimiento = fields.Date('Fecha de Nacimiento')
     edad = fields.Integer('Edad')

@@ -11,6 +11,7 @@
                     <field name="nit"/>
                     <field name="nrc"/>
                     <field name="giro"/>
+                    
                     <field name="companysize"/>
                 </xpath>
             </data>
@@ -41,6 +42,7 @@
                         <field name="nit"/>
                         <field name="nrc"/>
                         <field name="giro"/>
+                        <field name="nombrecomercial"/>
                         <field name="companysize"/>
                     </group>
                     <group string="Laboral" attrs="{'invisible': [('is_company', '=', True)]}">
