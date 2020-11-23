@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <report
+            id="solicitud_credito"
+            string="Formulario de Información"
+            model="res.partner"
+            report_type="qweb-html"
+            name="soluciones__estrategicas.solicitud_cliente"
+            file="soluciones__estrategicas.solicitud_cliente"
+            print_report_name="'FORMULARIO DE INFORMACIÓN - %s' % (object.name)"
+            />
+    
+    <report
+            id="reporte_corrida_financiera"
+            string="Corrida Financiera"
+            model="solicitudes.credito.lineas"
+            report_type="qweb-html"
+            name="soluciones__estrategicas.reporte_corrida_financiera_template"
+            file="soluciones__estrategicas.corrida_financiera"
+            print_report_name="'CORRIDA FINANCIERA %s' % (object.id)"
+            />
+    
+    
+</odoo>
