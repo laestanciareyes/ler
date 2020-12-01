@@ -33,6 +33,7 @@
                     <field name="fechadenacimiento" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="edad" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}"/>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="codigo_anterior"/>
