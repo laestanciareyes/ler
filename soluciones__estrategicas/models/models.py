@@ -43,6 +43,7 @@ class AgregarCamposPartner(models.Model):
     fechadeexpediciondui = fields.Date('Fecha Expedicion DUI')
     fechadeexpiraciondui = fields.Date('Fecha Expiración DUI')
     interes = fields.Float('% Interes','digits(5,2)')
+    diasdegraciacredito = fields.Integer('Días de gracias (Crédito)', default=0)
     codigo_anterior = fields.Char('Código Anterior')
     
     lugardetrabajo = fields.Char('Lugar de Trabajo')
@@ -210,6 +211,7 @@ class SolicitudesCredito(models.Model):
     
         dias = 30
         fecha = self.fechaInicio
+        fechalimite = self.fechaInicio 
         cuota = -1 * np.pmt((self.porcentajedeinteresdelcredito/100), self.numerodecuotas, self.montoaprobado - self.montoanticipo)
         self.cuota = cuota
         self.montoprestado = self.montoaprobado - self.montoanticipo
@@ -218,7 +220,8 @@ class SolicitudesCredito(models.Model):
         for nc in range(self.numerodecuotas):
             cuotasaldofinal = cuotasaldoinicial - cuota
             nuevafecha = fecha + timedelta(days=dias)
-            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E'}) 
+            fechalimite = nuevafecha + timedelta(days=self.cliente_id.diasdegraciacredito)
+            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite}) 
             fecha = nuevafecha
             cuotasaldoinicial = cuotasaldofinal
     
@@ -229,6 +232,7 @@ class SolicitudesCreditoCuotas(models.Model):
     cuotanumero = fields.Integer('Cuota')
     cuotafecha = fields.Date('Fecha de pago')
     cuotafechapagada = fields.Date('Fecha pagada')
+    cuotafechalimite = fields.Date('Fecha Límite de Pago')
     cuotasaldoinicial=fields.Float('Saldo Inicial')
     cuotamonto = fields.Float('Cuota Fija')
     cuotasaldofinal = fields.Float('Saldo Final')
