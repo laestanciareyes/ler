@@ -282,8 +282,8 @@
     
     <!--FACTURAS -->
     <record id="sale_advance_payment_inv_cust_custom" model="ir.ui.view">
-        <field name="name">sale.advance.payment.inv.cust.form</field>
-        <field name="model">sale.advance.payment.inv.cust</field>
+        <field name="name">sale.advance.payment.inv.form</field>
+        <field name="model">sale.advance.payment.inv</field>
         <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
         <field name="arch" type="xml">
             <data>                

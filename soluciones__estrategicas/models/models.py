@@ -198,7 +198,7 @@ class SolicitudesCredito(models.Model):
     saldodespuesanticipo = fields.Float('Saldo Después de Anticipo')
     estatus = fields.Selection([('E', 'Evaluación'), ('A', 'Aprobado'), ('D','Denegado'), ('C','Cancelado')],'Estatus', default="E")
     solicitudes_lineas_cuotas = fields.One2many('solicitudes.credito.lineas.cuotas','solicitud_id')
-    #factura_solicitud = fields.One2many('account.move','solicitud_id')
+    factura_solicitud = fields.One2many('sale.advance.payment.inv','solicitud_id')
     
     def imprimir_corrida_financiera(self):
         _logger.info("imprimir_corrida_financiera: TEST")
@@ -258,10 +258,9 @@ class AgregarCamposProductos(models.Model):
 #################################
 #Campos Facturas (Documentos)
 #################################  
-class AgregarCamposFactura(models.Model):
-    _name = 'sale.advance.payment.inv.cust'
+class AgregarCamposFactura(models.TransientModel):
     _inherit = 'sale.advance.payment.inv'
-    _description = 'Campos Adicionales para factura'
+    _description = 'Campos Adicionales para factura '
     tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
     solicitud_id = fields.Many2one('solicitudes.credito.lineas','ID Solicitud')
 
