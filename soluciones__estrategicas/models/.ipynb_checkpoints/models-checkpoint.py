@@ -43,7 +43,7 @@ class AgregarCamposPartner(models.Model):
     fechadeexpediciondui = fields.Date('Fecha Expedicion DUI')
     fechadeexpiraciondui = fields.Date('Fecha Expiración DUI')
     interes = fields.Float('% Interes','digits(5,2)')
-    diasdegraciacredito = fields.Integer('Días de gracias (Crédito)', default=0)
+    diasdegraciacredito = fields.Integer('Días de gracia (Crédito)', default=0)
     codigo_anterior = fields.Char('Código Anterior')
     
     lugardetrabajo = fields.Char('Lugar de Trabajo')
@@ -198,6 +198,7 @@ class SolicitudesCredito(models.Model):
     saldodespuesanticipo = fields.Float('Saldo Después de Anticipo')
     estatus = fields.Selection([('E', 'Evaluación'), ('A', 'Aprobado'), ('D','Denegado'), ('C','Cancelado')],'Estatus', default="E")
     solicitudes_lineas_cuotas = fields.One2many('solicitudes.credito.lineas.cuotas','solicitud_id')
+    #factura_solicitud = fields.One2many('account.move','solicitud_id')
     
     def imprimir_corrida_financiera(self):
         _logger.info("imprimir_corrida_financiera: TEST")
@@ -228,7 +229,7 @@ class SolicitudesCredito(models.Model):
 class SolicitudesCreditoCuotas(models.Model):
     _name = 'solicitudes.credito.lineas.cuotas'
     _description = 'Cuotas de Credito'
-    solicitud_id = fields.Many2one('solicitudes.credito.lineas','ID Cuota')
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','ID Solicitud')
     cuotanumero = fields.Integer('Cuota')
     cuotafecha = fields.Date('Fecha de pago')
     cuotafechapagada = fields.Date('Fecha pagada')
@@ -252,6 +253,18 @@ class SolicitudesCreditoCuotas(models.Model):
 class AgregarCamposProductos(models.Model):
     _inherit = 'product.template'
     codigo_anterior = fields.Char('Código Anterior')
+    
+
+#################################
+#Campos Facturas (Documentos)
+#################################  
+class AgregarCamposFactura(models.Model):
+    _name = 'sale.advance.payment.inv.cust'
+    _inherit = 'sale.advance.payment.inv'
+    _description = 'Campos Adicionales para factura'
+    tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','ID Solicitud')
+
     
 # class soluciones__estrategicas(models.Model):
 #     _name = 'soluciones__estrategicas.soluciones__estrategicas'

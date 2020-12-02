@@ -279,6 +279,21 @@
             </data>
         </field>
     </record>
+    
+    <!--FACTURAS -->
+    <record id="sale_advance_payment_inv_cust_custom" model="ir.ui.view">
+        <field name="name">sale.advance.payment.inv.cust.form</field>
+        <field name="model">sale.advance.payment.inv.cust</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <data>                
+                <xpath expr="//field[@name='advance_payment_method']" position="after">
+                    <field name="tipodocumento"/>
+                    <field name="solicitud_id"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
       
 </odoo>
     

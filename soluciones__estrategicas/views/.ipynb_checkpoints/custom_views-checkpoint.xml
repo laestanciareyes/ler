@@ -33,7 +33,7 @@
                     <field name="fechadenacimiento" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="edad" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}" options="{'type': 'number', 'step': 1}"/>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="codigo_anterior"/>
@@ -244,6 +244,7 @@
                                 
                                     <field name="fechaInicio"/>
                                     
+                                    
                                     <field name="fechaestatus"/>
                                     <field name="estatus"/>
                                     
@@ -258,6 +259,7 @@
                                             <field name="cuotanumero"/>
                                             <field name="cuotafecha"/>
                                             <field name="cuotafechapagada"/>
+                                            <field name="cuotafechalimite"/>
                                             <field name="cuotasaldoinicial" widget="monetary"/>
                                             <field name="cuotamonto" widget="monetary"/>
                                             <field name="cuotasaldofinal" widget="monetary"/>
@@ -273,6 +275,21 @@
                             </form>
                         </field>
                     </page>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    
+    <!--FACTURAS -->
+    <record id="sale_advance_payment_inv_cust_custom" model="ir.ui.view">
+        <field name="name">sale.advance.payment.inv.cust.form</field>
+        <field name="model">sale.advance.payment.inv.cust</field>
+        <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+        <field name="arch" type="xml">
+            <data>                
+                <xpath expr="//field[@name='advance_payment_method']" position="after">
+                    <field name="tipodocumento"/>
+                    <field name="solicitud_id"/>
                 </xpath>
             </data>
         </field>
