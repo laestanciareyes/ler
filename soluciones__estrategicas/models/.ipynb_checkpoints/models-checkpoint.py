@@ -196,7 +196,7 @@ class SolicitudesCredito(models.Model):
     porcentajedeinteresmoratorio = fields.Float('Interés Moratorio %')
     cuota = fields.Float('Cuota Fija')
     saldodespuesanticipo = fields.Float('Saldo Después de Anticipo')
-    estatus = fields.Selection([('E', 'Evaluación'), ('A', 'Aprobado'), ('D','Denegado'), ('C','Cancelado')],'Estatus', default="E")
+    estatus = fields.Selection([('E', 'Evaluación'), ('A', 'Aprobado'), ('D','Denegado'), ('C','Cancelado'), ('F','Facturado'),('P','Pagado')],'Estatus', default="E")
     solicitudes_lineas_cuotas = fields.One2many('solicitudes.credito.lineas.cuotas','solicitud_id')
     factura_solicitud = fields.One2many('sale.advance.payment.inv','solicitud_id')
     
@@ -259,11 +259,50 @@ class AgregarCamposProductos(models.Model):
 #Campos Facturas (Documentos)
 #################################  
 class AgregarCamposFactura(models.TransientModel):
+    
+    def _get_solicitudes(self):
+        domain =[('id', '=', -1)]
+        solicitudes_list=[]
+        _logger.info('_get_solicitudes domain 3.0 = ')
+        _logger.info(self.solicitud_id)
+        solicitudes_model = self.env['solicitudes.credito.lineas'].search([('cliente_id.id','=',self.solicitud_id.cliente_id.id)])
+        #,('estatus','=','A')
+        for each in solicitudes_model:
+            solicitudes_list.append(each.solicitud_id.id)
+        if solicitudes_list:
+            domain =[('id', 'in', solicitudes_list)]
+            _logger.info('_get_solicitudes domain = ' + domain[0] + domain[1])
+            return domain
+        _logger.info('_get_solicitudes domain = ')
+        _logger.info(domain)
+        return domain
+    
+    
     _inherit = 'sale.advance.payment.inv'
     _description = 'Campos Adicionales para factura '
     tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
-    solicitud_id = fields.Many2one('solicitudes.credito.lineas','ID Solicitud')
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud',domain=_get_solicitudes)
 
+    
+
+    #employee_id = fields.Many2one('hr.employee','Employee',required=True,domain=_get_employee)
+    
+    #def default_get(self,fields):
+        #wt = self.env['solicitudes.credito.lineas']
+        #solicitudes = wt.search([('cliente_id', '=', self.solicitud_id.cliente_id)]).id
+        
+        #self.solicitud_id.search([('cliente_id', '=', self.solicitud_id.cliente_id)])
+        #new = wt.browse(solicitudes)
+        
+        
+    #def name_get(self):
+        #result = []
+        #for record in self:
+            #if self.env.context.get('mostrar_solicitudes', False):
+                # Only goes off when the custom_search is in the context values.
+            #result.append((record.id, "{} {}".format(record.id, record.montoaprobado)))
+            #else:
+            #    result.append((record.id, record.name))
     
 # class soluciones__estrategicas(models.Model):
 #     _name = 'soluciones__estrategicas.soluciones__estrategicas'
