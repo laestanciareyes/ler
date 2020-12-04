@@ -181,6 +181,7 @@ class AgregarCamposPartner(models.Model):
 class SolicitudesCredito(models.Model):
     _name = 'solicitudes.credito.lineas'
     _description = 'Solicitudes de crédito'
+    name = fields.Char('Descripción')
     cliente_id = fields.Many2one('res.partner','ID Solicitud')
     fechasolicitud = fields.Date('Fecha de Solicitud          ', default=datetime.now())
     fechaestatus = fields.Date('Fecha Estatus', default=datetime.now())
@@ -261,6 +262,16 @@ class AgregarCamposProductos(models.Model):
 #@api.depends('order.id','order.partner_id')
 class AgregarCamposFactura(models.TransientModel):
     
+    def name_get(self):
+        result = []
+        for record in self:
+            if self.env.context.get('mostrar', False):
+                # Only goes off when the custom_search is in the context values.
+                result.append((record.id, "{} - ${}".format(record.name, record.montoaprobado)))
+            else:
+                result.append((record.id, record.name))
+        return result
+    
     def _get_solicitudes(self):
         domain =[('id', '=', -1)]
         solicitudes_list=[]
@@ -304,6 +315,8 @@ class AgregarCamposFactura(models.TransientModel):
             'campaign_id': order.campaign_id.id,
             'medium_id': order.medium_id.id,
             'source_id': order.source_id.id,
+            'tipodocumento':self.tipodocumento,
+            'solicitud_id':self.solicitud_id,
             'invoice_line_ids': [(0, 0, {
                 'name': name,
                 'price_unit': amount,
@@ -316,17 +329,26 @@ class AgregarCamposFactura(models.TransientModel):
                 'analytic_account_id': order.analytic_account_id.id or False,
             })],
         }
-        _logger.info('########### Preparando información de orden hacia factura...')
+        _logger.info('--------------Preparando información de orden hacia factura...')
         _logger.info(self.order.partner_id)
+        #raise Warning('test')
         return invoice_vals
     
     
     _inherit = 'sale.advance.payment.inv'
     _description = 'Campos Adicionales para factura '
+    name = fields.Char('Descripcion Solicitud')
     tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
-    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud',domain=_get_solicitudes)
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito',domain=_get_solicitudes,help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
 
+#################################
+#Campos Factura
+#################################     
     
+class AgregarCamposFactura(models.Model):
+    _inherit = 'account.move'
+    tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito',help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
 
     #employee_id = fields.Many2one('hr.employee','Employee',required=True,domain=_get_employee)
     

@@ -208,6 +208,7 @@
                             <tree>
                                 <field name="cliente_id" invisible="1"/>
                                 <button name="imprimir_corrida_financiera" string="Imprimir" type="object" class="oe_highlight" />
+                                <field name="name"/>
                                 <field name="fechasolicitud"/>
                                 <field name="montodesolicitud" widget="monetary"/>
                                 <field name="montoaprobado" widget="monetary"/>
@@ -224,7 +225,7 @@
                             </tree>
                             <form string="Solicitudes">
                                 <header>
-                                    <button name="imprimir_corrida_financiera" string="Imprimir Corrida Financiera" type="object" class="oe_highlight" />
+                                    <field name="name"/>
                                 </header>
                                 <group string="Información para Solicitud" col="6" colspan="3">
                                    <!-- <field name="solicitudes_id" invisible="1"/>-->
@@ -280,7 +281,7 @@
         </field>
     </record>
     
-    <!--FACTURAS -->
+    <!--FACTURAS PRE-->
     <record id="sale_advance_payment_inv_cust_custom" model="ir.ui.view">
         <field name="name">sale.advance.payment.inv.form</field>
         <field name="model">sale.advance.payment.inv</field>
@@ -289,7 +290,22 @@
             <data>                
                 <xpath expr="//field[@name='advance_payment_method']" position="after">
                     <field name="tipodocumento"/>
-                    <field name="solicitud_id" options="{'no_create':False}"/>
+                    <field name="solicitud_id" options="{'no_create':True}" context="{'mostrar': 1}" />
+                </xpath>
+            </data>
+        </field>
+    </record>
+    
+    <!--FACTURAS -->
+    <record id="account_view_move_form_custom" model="ir.ui.view">
+        <field name="name">account.view.move.form</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <data>                
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="tipodocumento"/>
+                    <field name="solicitud_id" options="{'no_create':True}"/>
                 </xpath>
             </data>
         </field>
