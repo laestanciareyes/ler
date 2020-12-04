@@ -289,7 +289,7 @@
             <data>                
                 <xpath expr="//field[@name='advance_payment_method']" position="after">
                     <field name="tipodocumento"/>
-                    <field name="solicitud_id"/>
+                    <field name="solicitud_id" options="{'no_create':False}"/>
                 </xpath>
             </data>
         </field>
