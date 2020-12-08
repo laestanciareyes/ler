@@ -305,7 +305,7 @@
             <data>                
                 <xpath expr="//field[@name='ref']" position="after">
                     <field name="tipodocumento"/>
-                    <field name="solicitud_id" options="{'no_create':True}"/>
+                    <field name="solicitud_id" options="{'no_create':True}" context="{'mostrar': 1}"/>
                 </xpath>
             </data>
         </field>

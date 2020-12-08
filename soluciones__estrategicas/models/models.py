@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
 
-from odoo import models, fields, api
+
+from functools import partial
+from itertools import groupby
+
+from odoo import models, fields, api, SUPERUSER_ID, _
 from odoo.exceptions import AccessError, UserError, RedirectWarning, ValidationError, Warning
+from odoo.tools.misc import formatLang, get_lang
+from odoo.osv import expression
+from odoo.tools import float_is_zero, float_compare
+
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
 import numpy as np
 import logging
 import time
+
 
 _logger = logging.getLogger(__name__)
 #################################
@@ -341,6 +350,18 @@ class AgregarCamposFactura(models.TransientModel):
     tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
     solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito',domain=_get_solicitudes,help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
     
+    @api.onchange('tipodocumento')
+    def onchange_tipodocumento(self):
+        self.env['ir.config_parameter'].sudo().set_param('var.tipodocumento', self.tipodocumento)
+    
+    @api.onchange('solicitud_id')
+    def onchange_solicitud_id(self):
+        self.env['ir.config_parameter'].sudo().set_param('var.solicitud_id', self.solicitud_id.id)
+    
+    
+    #def create(self, context=None):
+    #    _logger.info('****************************** INICIANDO sale.advance.payment.inv *************************')
+    
     @api.onchange('advance_payment_method')
     def onchange_advance_payment_method(self):
         if self.advance_payment_method == 'percentage':
@@ -349,6 +370,7 @@ class AgregarCamposFactura(models.TransientModel):
         return {}
     
     def _prepare_invoice_values(self, order, name, amount, so_line):
+        
         invoice_vals = {
             'ref': order.client_order_ref,
             'type': 'out_invoice',
@@ -382,6 +404,11 @@ class AgregarCamposFactura(models.TransientModel):
         }
         _logger.info('************************Preparando información de orden hacia factura... ************************2')
         _logger.info(self.tipodocumento)
+        
+        qryupdate = "update solicitudes_credito_lineas set estatus='F' where id = " + str(self.solicitud_id.id) 
+        #qryConsulta = "select count(*) as nreg from nominaclientes_detalle where nomina_id='" +nominaId +"' and nomina_emp_id = " + empId
+        _logger.info(qryupdate)
+        self.env.cr.execute(qryupdate)
         #raise Warning('test')
         return invoice_vals
     
@@ -480,6 +507,226 @@ class AgregarCamposFactura(models.TransientModel):
             'taxes_id': [(6, 0, self.deposit_taxes_id.ids)],
             'company_id': False,
         }
+    
+    
+class SaleOrder(models.Model):
+    _inherit = 'sale.order'
+    _description = 'Asignar datos adicionales a la factura'
+    
+    def _prepare_invoice(self):
+        """
+        Prepare the dict of values to create the new invoice for a sales order. This method may be
+        overridden to implement custom invoice generation (making sure to call super() to establish
+        a clean extension chain).
+        """
+        self.ensure_one()
+        # ensure a correct context for the _get_default_journal method and company-dependent fields
+        self = self.with_context(default_company_id=self.company_id.id, force_company=self.company_id.id)
+        journal = self.env['account.move'].with_context(default_type='out_invoice')._get_default_journal()
+        if not journal:
+            raise UserError(_('Please define an accounting sales journal for the company %s (%s).') % (self.company_id.name, self.company_id.id))
+        
+        #adicional = self.env['sale.advance.payment.inv'].browse(self._context.get('tipodocumento'))
+        
+        tipodoc = self.env['ir.config_parameter'].sudo().get_param('var.tipodocumento')
+        solicitud = self.env['ir.config_parameter'].sudo().get_param('var.solicitud_id')
+        
+        _logger.info('************************Preparando información de orden hacia factura SaleOrder... ************************0')
+        #_logger.info('longitud de adicional: ' + str(len(adicional)))
+        _logger.info(tipodoc)
+        _logger.info(solicitud) 
+        #_logger.info(solicitud.id)
+        _logger.info('**********************************************************************************************************0')
+        #_logger.info(adicional)
+        #_logger.info(adicional.tipodocumento)
+        
+        
+        invoice_vals = {
+            'ref': self.client_order_ref or '',
+            'type': 'out_invoice',
+            'narration': self.note,
+            'currency_id': self.pricelist_id.currency_id.id,
+            'campaign_id': self.campaign_id.id,
+            'medium_id': self.medium_id.id,
+            'source_id': self.source_id.id,
+            'invoice_user_id': self.user_id and self.user_id.id,
+            'team_id': self.team_id.id,
+            'partner_id': self.partner_invoice_id.id,
+            'partner_shipping_id': self.partner_shipping_id.id,
+            'invoice_partner_bank_id': self.company_id.partner_id.bank_ids[:1].id,
+            'fiscal_position_id': self.fiscal_position_id.id or self.partner_invoice_id.property_account_position_id.id,
+            'journal_id': journal.id,  # company comes from the journal
+            'invoice_origin': self.name,
+            'invoice_payment_term_id': self.payment_term_id.id,
+            'invoice_payment_ref': self.reference,
+            'transaction_ids': [(6, 0, self.transaction_ids.ids)],
+            'invoice_line_ids': [],
+            'company_id': self.company_id.id,
+            'tipodocumento':tipodoc,
+            'solicitud_id':solicitud,
+        }
+        
+        qryupdate = "update solicitudes_credito_lineas set estatus='F' where id = " + str(solicitud) 
+        #qryConsulta = "select count(*) as nreg from nominaclientes_detalle where nomina_id='" +nominaId +"' and nomina_emp_id = " + empId
+        self.env.cr.execute(qryupdate)
+        
+        return invoice_vals
+
+    def action_quotation_sent(self):
+        if self.filtered(lambda so: so.state != 'draft'):
+            raise UserError(_('Only draft orders can be marked as sent directly.'))
+        for order in self:
+            order.message_subscribe(partner_ids=order.partner_id.ids)
+        self.write({'state': 'sent'})
+
+    def action_view_invoice(self):
+        invoices = self.mapped('invoice_ids')
+        action = self.env.ref('account.action_move_out_invoice_type').read()[0]
+        if len(invoices) > 1:
+            action['domain'] = [('id', 'in', invoices.ids)]
+        elif len(invoices) == 1:
+            form_view = [(self.env.ref('account.view_move_form').id, 'form')]
+            if 'views' in action:
+                action['views'] = form_view + [(state,view) for state,view in action['views'] if view != 'form']
+            else:
+                action['views'] = form_view
+            action['res_id'] = invoices.id
+        else:
+            action = {'type': 'ir.actions.act_window_close'}
+
+        context = {
+            'default_type': 'out_invoice',
+        }
+        if len(self) == 1:
+            context.update({
+                'default_partner_id': self.partner_id.id,
+                'default_partner_shipping_id': self.partner_shipping_id.id,
+                'default_invoice_payment_term_id': self.payment_term_id.id or self.partner_id.property_payment_term_id.id or self.env['account.move'].default_get(['invoice_payment_term_id']).get('invoice_payment_term_id'),
+                'default_invoice_origin': self.mapped('name'),
+                'default_user_id': self.user_id.id,
+            })
+        action['context'] = context
+        return action
+
+    def _get_invoice_grouping_keys(self):
+        return ['company_id', 'partner_id', 'currency_id']
+
+    def _create_invoices(self, grouped=False, final=False):
+        """
+        Create the invoice associated to the SO.
+        :param grouped: if True, invoices are grouped by SO id. If False, invoices are grouped by
+                        (partner_invoice_id, currency)
+        :param final: if True, refunds will be generated if necessary
+        :returns: list of created invoices
+        """
+        if not self.env['account.move'].check_access_rights('create', False):
+            try:
+                self.check_access_rights('write')
+                self.check_access_rule('write')
+            except AccessError:
+                return self.env['account.move']
+
+        precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
+
+        # 1) Create invoices.
+        invoice_vals_list = []
+        for order in self:
+            pending_section = None
+
+            # Invoice values.
+            invoice_vals = order._prepare_invoice()
+
+            # Invoice line values (keep only necessary sections).
+            for line in order.order_line:
+                if line.display_type == 'line_section':
+                    pending_section = line
+                    continue
+                if line.display_type != 'line_note' and float_is_zero(line.qty_to_invoice, precision_digits=precision):
+                    continue
+                if line.qty_to_invoice > 0 or (line.qty_to_invoice < 0 and final) or line.display_type == 'line_note':
+                    if pending_section:
+                        invoice_vals['invoice_line_ids'].append((0, 0, pending_section._prepare_invoice_line()))
+                        pending_section = None
+                    invoice_vals['invoice_line_ids'].append((0, 0, line._prepare_invoice_line()))
+
+            if not invoice_vals['invoice_line_ids']:
+                raise UserError(_('There is no invoiceable line. If a product has a Delivered quantities invoicing policy, please make sure that a quantity has been delivered.'))
+
+            invoice_vals_list.append(invoice_vals)
+
+        if not invoice_vals_list:
+            raise UserError(_(
+                'There is no invoiceable line. If a product has a Delivered quantities invoicing policy, please make sure that a quantity has been delivered.'))
+
+        # 2) Manage 'grouped' parameter: group by (partner_id, currency_id).
+        if not grouped:
+            new_invoice_vals_list = []
+            invoice_grouping_keys = self._get_invoice_grouping_keys()
+            for grouping_keys, invoices in groupby(invoice_vals_list, key=lambda x: [x.get(grouping_key) for grouping_key in invoice_grouping_keys]):
+                origins = set()
+                payment_refs = set()
+                refs = set()
+                ref_invoice_vals = None
+                for invoice_vals in invoices:
+                    if not ref_invoice_vals:
+                        ref_invoice_vals = invoice_vals
+                    else:
+                        ref_invoice_vals['invoice_line_ids'] += invoice_vals['invoice_line_ids']
+                    origins.add(invoice_vals['invoice_origin'])
+                    payment_refs.add(invoice_vals['invoice_payment_ref'])
+                    refs.add(invoice_vals['ref'])
+                ref_invoice_vals.update({
+                    'ref': ', '.join(refs)[:2000],
+                    'invoice_origin': ', '.join(origins),
+                    'invoice_payment_ref': len(payment_refs) == 1 and payment_refs.pop() or False,
+                })
+                new_invoice_vals_list.append(ref_invoice_vals)
+            invoice_vals_list = new_invoice_vals_list
+
+        # 3) Create invoices.
+
+        # As part of the invoice creation, we make sure the sequence of multiple SO do not interfere
+        # in a single invoice. Example:
+        # SO 1:
+        # - Section A (sequence: 10)
+        # - Product A (sequence: 11)
+        # SO 2:
+        # - Section B (sequence: 10)
+        # - Product B (sequence: 11)
+        #
+        # If SO 1 & 2 are grouped in the same invoice, the result will be:
+        # - Section A (sequence: 10)
+        # - Section B (sequence: 10)
+        # - Product A (sequence: 11)
+        # - Product B (sequence: 11)
+        #
+        # Resequencing should be safe, however we resequence only if there are less invoices than
+        # orders, meaning a grouping might have been done. This could also mean that only a part
+        # of the selected SO are invoiceable, but resequencing in this case shouldn't be an issue.
+        if len(invoice_vals_list) < len(self):
+            SaleOrderLine = self.env['sale.order.line']
+            for invoice in invoice_vals_list:
+                sequence = 1
+                for line in invoice['invoice_line_ids']:
+                    line[2]['sequence'] = SaleOrderLine._get_invoice_line_sequence(new=sequence, old=line[2]['sequence'])
+                    sequence += 1
+
+        # Manage the creation of invoices in sudo because a salesperson must be able to generate an invoice from a
+        # sale order without "billing" access rights. However, he should not be able to create an invoice from scratch.
+        moves = self.env['account.move'].sudo().with_context(default_type='out_invoice').create(invoice_vals_list)
+
+        # 4) Some moves might actually be refunds: convert them if the total amount is negative
+        # We do this after the moves have been created since we need taxes, etc. to know if the total
+        # is actually negative or not
+        if final:
+            moves.sudo().filtered(lambda m: m.amount_total < 0).action_switch_invoice_into_refund_credit_note()
+        for move in moves:
+            move.message_post_with_view('mail.message_origin_link',
+                values={'self': move, 'origin': move.line_ids.mapped('sale_line_ids.order_id')},
+                subtype_id=self.env.ref('mail.mt_note').id
+            )
+        return moves
+    
 
 #################################
 #Campos Factura
@@ -487,8 +734,74 @@ class AgregarCamposFactura(models.TransientModel):
     
 class AgregarCamposFactura(models.Model):
     _inherit = 'account.move'
+    
+    def _get_solicitudes(self):
+        #partner=999
+        
+        domain =[('id', '=', -1)]
+        solicitudes_list=[]
+        _logger.info('_get_solicitudes domain 4.0 = ')
+        solicitudes_model = self.env['solicitudes.credito.lineas'].search([('cliente_id.id','=',-2),('estatus','=','A')])
+        #_logger.info(self.order.partner_id)
+        #if self._context.get('active_model') == 'sale.order' and self._context.get('active_id', False):
+        #if self._context.get('active_model') == 'sale.order' and self._context.get('active_id', False):
+        #    sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
+        _logger.info('************************************************ partner id **********')
+        _logger.info(self.partner_id.id)
+        _logger.info('************************************************')
+        #domain
+        #partner = self.partner_id.id
+        #self.env.cr.execute("SELECT id from solicitudes_credito_lineas where cliente_id= {}".format(partner))
+        #self.deadline = env.cr.fetchone()[0]
+        #solicitudes_model= self.env.cr.fetchall()
+        
+        solicitudes_model = self.env['solicitudes.credito.lineas'].search([('cliente_id.id','=',self.partner_id.id),])
+        #,('estatus','=','A')
+        _logger.info('************************************************ each id **********')
+        for each in solicitudes_model:
+            solicitudes_list.append(each[0])
+            _logger.info(each[0])
+        _logger.info('************************************************ fin each id **********')    
+        if solicitudes_list:
+            domain =[('id', 'in', solicitudes_list)]
+            #_logger.info('_get_solicitudes domain = ' + domain[0] + domain[1])
+        #    return domain
+        _logger.info('_get_solicitudes domain CONTEO = ')
+        _logger.info(len(domain))
+        return domain
+    
+    
     tipodocumento = fields.Selection([('FAC', 'Factura Consumidor Final'), ('CCF', 'Comprobante de crédito Fiscal')],'Tipo de Documento', default="FAC")
-    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito',help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito',domain=_get_solicitudes, help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
+    
+    def name_get(self):
+        
+        _logger.info('************************************************ NAMEGET ***************************************')
+        result = []
+        
+        self.env.cr.execute("SELECT id, name from solicitudes_credito_lineas where cliente_id=" + str(self.partner_id.id)) + " order by id"
+        #self.deadline = env.cr.fetchone()[0]
+        registros= self.env.cr.fetchall()
+        
+        _logger.info("******** registros *********")
+        _logger.info(len(registros))
+        
+        for record in registros:
+            if self.env.context.get('mostrar', False):
+            # Only goes off when the custom_search is in the context values.
+                result.append((record.id, "{} - ${}".format(record.name, record.montoaprobado)))
+            else:
+                result.append((record[0], record[1]))
+        return result
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     #employee_id = fields.Many2one('hr.employee','Employee',required=True,domain=_get_employee)
     
