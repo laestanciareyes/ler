@@ -405,7 +405,13 @@ class AgregarCamposFactura(models.TransientModel):
         _logger.info('************************Preparando información de orden hacia factura... ************************2')
         _logger.info(self.tipodocumento)
         
-        qryupdate = "update solicitudes_credito_lineas set estatus='F' where id = " + str(self.solicitud_id.id) 
+        sol = -2
+        if not self.solicitud_id.id:
+            sol=-2
+        else:
+            sol=self.solicitud_id.id
+        
+        qryupdate = "update solicitudes_credito_lineas set estatus='F' where id = " + str(sol) 
         #qryConsulta = "select count(*) as nreg from nominaclientes_detalle where nomina_id='" +nominaId +"' and nomina_emp_id = " + empId
         _logger.info('************************ QUERY UPDATE ************************2')
         _logger.info(qryupdate)
@@ -779,7 +785,13 @@ class AgregarCamposFactura(models.Model):
         
         _logger.info('************************************************ NAMEGET ***************************************')
         result = []
-        qry = "SELECT id, name from solicitudes_credito_lineas where cliente_id=" + str(self.partner_id.id) + " order by id"
+        partner = -2
+        if not self.partner_id.id:
+            partner=-2
+        else:
+            partner = self.partner_id.id
+            
+        qry = "SELECT id, name from solicitudes_credito_lineas where cliente_id=" + str(partner) + " order by id"
         
         self.env.cr.execute(qry)
         #self.deadline = env.cr.fetchone()[0]
