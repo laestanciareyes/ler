@@ -407,6 +407,7 @@ class AgregarCamposFactura(models.TransientModel):
         
         qryupdate = "update solicitudes_credito_lineas set estatus='F' where id = " + str(self.solicitud_id.id) 
         #qryConsulta = "select count(*) as nreg from nominaclientes_detalle where nomina_id='" +nominaId +"' and nomina_emp_id = " + empId
+        _logger.info('************************ QUERY UPDATE ************************2')
         _logger.info(qryupdate)
         self.env.cr.execute(qryupdate)
         #raise Warning('test')
