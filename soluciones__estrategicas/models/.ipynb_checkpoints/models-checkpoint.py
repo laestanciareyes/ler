@@ -534,9 +534,12 @@ class SaleOrder(models.Model):
             raise UserError(_('Please define an accounting sales journal for the company %s (%s).') % (self.company_id.name, self.company_id.id))
         
         #adicional = self.env['sale.advance.payment.inv'].browse(self._context.get('tipodocumento'))
+        solicitud = -2
         
         tipodoc = self.env['ir.config_parameter'].sudo().get_param('var.tipodocumento')
         solicitud = self.env['ir.config_parameter'].sudo().get_param('var.solicitud_id')
+        
+        
         
         _logger.info('************************Preparando información de orden hacia factura SaleOrder... ************************0')
         #_logger.info('longitud de adicional: ' + str(len(adicional)))
