@@ -539,10 +539,9 @@ class SaleOrder(models.Model):
         tipodoc = self.env['ir.config_parameter'].sudo().get_param('var.tipodocumento')
         solicitud = self.env['ir.config_parameter'].sudo().get_param('var.solicitud_id')
         
-        if not self.solicitud_id.id:
+        if not solicitud:
             solicitud=-2
-        else:
-            solicitud=self.solicitud_id.id
+        
         
         _logger.info('************************Preparando información de orden hacia factura SaleOrder... ************************0')
         #_logger.info('longitud de adicional: ' + str(len(adicional)))
