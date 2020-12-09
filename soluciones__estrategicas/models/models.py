@@ -778,8 +778,9 @@ class AgregarCamposFactura(models.Model):
         
         _logger.info('************************************************ NAMEGET ***************************************')
         result = []
+        qry = "SELECT id, name from solicitudes_credito_lineas where cliente_id=" + str(self.partner_id.id) + " order by id"
         
-        self.env.cr.execute("SELECT id, name from solicitudes_credito_lineas where cliente_id=" + str(self.partner_id.id) + " order by id")
+        self.env.cr.execute(qry)
         #self.deadline = env.cr.fetchone()[0]
         registros= self.env.cr.fetchall()
         
