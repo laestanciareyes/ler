@@ -405,9 +405,9 @@ class AgregarCamposFactura(models.TransientModel):
         _logger.info('************************Preparando información de orden hacia factura... ************************2')
         _logger.info(self.tipodocumento)
         
-        sol = -2
+        sol = 0
         if not self.solicitud_id.id:
-            sol=-2
+            sol=0
         else:
             sol=self.solicitud_id.id
         
@@ -540,7 +540,7 @@ class SaleOrder(models.Model):
         solicitud = self.env['ir.config_parameter'].sudo().get_param('var.solicitud_id')
         
         if not solicitud:
-            solicitud=-2
+            solicitud=0
         
         
         _logger.info('************************Preparando información de orden hacia factura SaleOrder... ************************0')
