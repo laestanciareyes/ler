@@ -406,7 +406,7 @@ class AgregarCamposFactura(models.TransientModel):
         _logger.info(self.tipodocumento)
         
         sol = 0
-        if not self.solicitud_id.id:
+        if self.solicitud_id.id == False:
             sol=0
         else:
             sol=self.solicitud_id.id
@@ -539,7 +539,7 @@ class SaleOrder(models.Model):
         tipodoc = self.env['ir.config_parameter'].sudo().get_param('var.tipodocumento')
         solicitud = self.env['ir.config_parameter'].sudo().get_param('var.solicitud_id')
         
-        if not solicitud:
+        if solicitud == False:
             solicitud=0
         
         
