@@ -32,7 +32,11 @@
                     <field name="tipodevivienda" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="fechadenacimiento" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="edad" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                    <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                                              <!--, 'readonly':True}"/>-->
+                    
+                        <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}" cols="3"/>
+                        <!--<span class="oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">%</span>-->
+                    
                     <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}" options="{'type': 'number', 'step': 1}"/>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
@@ -214,8 +218,8 @@
                                 <field name="montoaprobado" widget="monetary"/>
                                 <field name="montoanticipo" widget="monetary"/>
                                 <field name="numerodecuotas" options="{'type': 'number', 'step': 1}"/>
-                                <field name="porcentajedeinteresdelcredito" widget="percentpie" nolabel="1" string=""/>
-                                <field name="porcentajedeinteresmoratorio" widget="percentpie" nolabel="1"/>
+                                <field name="porcentajedeinteresdelcredito"/>
+                                <field name="porcentajedeinteresmoratorio"/>
                                 
                                 <field name="fechaInicio"/>
                                 <field name="fechaestatus"/>
@@ -229,20 +233,23 @@
                                 </header>
                                 <group string="Información para Solicitud" col="6" colspan="3">
                                    <!-- <field name="solicitudes_id" invisible="1"/>-->
-                                    <field name="fechasolicitud"/>
+                                    
                                     <field name="montodesolicitud" widget="monetary"/>
                                     <field name="montoaprobado" widget="monetary"/>
                                     <field name="montoanticipo" widget="monetary"/>
                                     <field name="montoprestado" widget="monetary" attrs="{'readonly': 1}"/>
                                     <field name="numerodecuotas" options="{'type': 'number', 'step': 1}"/>
                                     <field name="cuota" attrs="{'readonly': 1}" widget="monetary"/>
-                                    <field name="saldodespuesanticipo" attrs="{'readonly': 1}" widget="monetary"/>
+                                    <field name="saldodespuesanticipo" colspan="5" attrs="{'readonly': 1}" widget="monetary"/>
                                     
-                                    <field name="porcentajedeinteresdelcredito"/>
+                                    <field name="porcentajedeinteresdelcredito" colspan="2"/>
+                                    <span class="oe_inline">%</span>
                                         
                                     
-                                    <field name="porcentajedeinteresmoratorio"/>
+                                    <field name="porcentajedeinteresmoratorio" colspan="2"/>
+                                    <span class="oe_inline">%</span>
                                 
+                                    <field name="fechasolicitud"/>
                                     <field name="fechaInicio"/>
                                     
                                     
@@ -306,6 +313,21 @@
                 <xpath expr="//field[@name='ref']" position="after">
                     <field name="tipodocumento"/>
                     <field name="solicitud_id" options="{'no_create':True}" context="{'mostrar': 1}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    
+    <!--PAGOS -->
+    <record id="account_view_payment_form_custom" model="ir.ui.view">
+        <field name="name">account.view.payment.form</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <data>                
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <field name="solicitud_id" options="{'no_create':True}"/>
+                    <field name="cuota_id" options="{'no_create':True}"/>
                 </xpath>
             </data>
         </field>

@@ -183,6 +183,18 @@ class AgregarCamposPartner(models.Model):
     
     solicitudes_lineas = fields.One2many('solicitudes.credito.lineas','cliente_id')
     
+    
+    @api.onchange('fechadenacimiento')
+    def actualizaredad(self):
+        hoy = date.today()
+        
+        edad = hoy.year - self.fechadenacimiento.year
+        full_year_passed = (hoy.month, hoy.day) < (self.fechadenacimiento.month, self.fechadenacimiento.day)
+        if not full_year_passed:
+            edad -= 1
+        edad+=1   
+        self.edad = edad
+    
     def imprimir_formulario(self):
         _logger.info("imprimir_formulario_clientes")
 
@@ -225,6 +237,7 @@ class SolicitudesCredito(models.Model):
         fecha = self.fechaInicio
         fechalimite = self.fechaInicio 
         cuota = -1 * np.pmt((self.porcentajedeinteresdelcredito/100), self.numerodecuotas, self.montoaprobado - self.montoanticipo)
+        noombre=''
         self.cuota = cuota
         self.montoprestado = self.montoaprobado - self.montoanticipo
         self.saldodespuesanticipo = self.cuota * self.numerodecuotas
@@ -233,7 +246,8 @@ class SolicitudesCredito(models.Model):
             cuotasaldofinal = cuotasaldoinicial - cuota
             nuevafecha = fecha + timedelta(days=dias)
             fechalimite = nuevafecha + timedelta(days=self.cliente_id.diasdegraciacredito)
-            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite}) 
+            nombre = '(' + str(nc+1) + ') - ' + fechalimite.strftime('%d/%m/%Y') + ' - ' + '${:,.2f}'.format(cuota)
+            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite,'name':nombre}) 
             fecha = nuevafecha
             cuotasaldoinicial = cuotasaldofinal
     
@@ -241,6 +255,7 @@ class SolicitudesCreditoCuotas(models.Model):
     _name = 'solicitudes.credito.lineas.cuotas'
     _description = 'Cuotas de Credito'
     solicitud_id = fields.Many2one('solicitudes.credito.lineas','ID Solicitud')
+    name = fields.Char('Descripción')
     cuotanumero = fields.Integer('Cuota')
     cuotafecha = fields.Date('Fecha de pago')
     cuotafechapagada = fields.Date('Fecha pagada')
@@ -814,9 +829,16 @@ class AgregarCamposFactura(models.Model):
         return result
     
     
+#################################
+#Campos Pago
+#################################       
     
+class AgregarCamposPagos(models.Model):
+    _inherit = 'account.payment'
+    _description = 'Campos Adicionales para pagos '
     
-    
+    solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito', help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
+    cuota_id = fields.Many2one('solicitudes.credito.lineas.cuotas','Cuota', help='Seleccione una cuota del cliente o deje en blanco en caso que sea compra sin crédito')
     
     
     
