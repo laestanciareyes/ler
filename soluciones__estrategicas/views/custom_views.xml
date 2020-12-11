@@ -261,21 +261,21 @@
                                     <button name="generar_cuotas_credito" string="Generar Cuotas" type="object" class="oe_highlight"/>
                                     <h2>Cuotas</h2>
                                 </group>
-                                <!--<group string="Cuotas" attrs="{'invisible': [('estatus', '!=', 'A')]}">-->
-                                    <field name="solicitudes_lineas_cuotas" string="" >
-                                        <tree>
-                                            <field name="cuotanumero"/>
-                                            <field name="cuotafecha"/>
-                                            <field name="cuotafechapagada"/>
-                                            <field name="cuotafechalimite"/>
-                                            <field name="cuotasaldoinicial" widget="monetary"/>
-                                            <field name="cuotamonto" widget="monetary"/>
-                                            <field name="cuotasaldofinal" widget="monetary"/>
-                                            <field name="cuotamontorecibido" widget="monetary"/>
+
+                                <field name="solicitudes_lineas_cuotas" string="" >
+                                    <tree>
+                                        <field name="cuotanumero"/>
+                                        <field name="cuotafecha"/>
+                                        <field name="cuotafechapagada"/>
+                                        <field name="cuotafechalimite"/>
+                                        <field name="cuotasaldoinicial" widget="monetary"/>
+                                        <field name="cuotamonto" widget="monetary"/>
+                                        <field name="cuotasaldofinal" widget="monetary"/>
+                                        <field name="cuotamontorecibido" widget="monetary"/>
                                         
-                                        </tree>
-                                    </field>
-                                <!--</group>-->
+                                    </tree>
+                                </field>
+                                
                                     
                                     
                                     
