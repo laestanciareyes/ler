@@ -803,7 +803,9 @@ class AgregarCamposFactura(models.Model):
     
     def name_get(self):
         
-        _logger.info('************************************************ NAMEGET ***************************************')
+        _logger.info('************************************************ NAMEGET FACTURA ***************************************')
+        
+        
         result = []
         partner = -2
         if not self.partner_id.id:
