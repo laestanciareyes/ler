@@ -222,6 +222,7 @@ class SolicitudesCredito(models.Model):
     estatus = fields.Selection([('E', 'Evaluación'), ('A', 'Aprobado'), ('D','Denegado'), ('C','Cancelado'), ('F','Facturado'),('P','Pagado')],'Estatus', default="E")
     solicitudes_lineas_cuotas = fields.One2many('solicitudes.credito.lineas.cuotas','solicitud_id')
     factura_solicitud = fields.One2many('sale.advance.payment.inv','solicitud_id')
+    pago_solicitud_id = fields.One2many('account.payment','solicitud_id')
     
     def imprimir_corrida_financiera(self):
         _logger.info("imprimir_corrida_financiera: TEST")
@@ -268,6 +269,7 @@ class SolicitudesCreditoCuotas(models.Model):
     cuotatotal = fields.Float(compute='total_cuota',string='Total Cuota')
     cuotamontorecibido = fields.Float('Monto Pagado')
     cuotaestatus = fields.Selection([('E', 'Pendiente'), ('P', 'Pagada')],'Estatus')
+    pago_id = fields.One2many('account.payment','cuota_id')
     
     
         
