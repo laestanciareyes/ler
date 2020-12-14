@@ -188,7 +188,14 @@ class AgregarCamposPartner(models.Model):
     def actualizaredad(self):
         hoy = date.today()
         
-        edad = hoy.year - self.fechadenacimiento.year
+        anionac= 1900
+        
+        if not self.fechadenacimiento:
+            anionac=1900
+        else:
+            anionac = self.fechadenacimiento.year
+        
+        edad = hoy.year - anionac
         full_year_passed = (hoy.month, hoy.day) < (self.fechadenacimiento.month, self.fechadenacimiento.day)
         if not full_year_passed:
             edad -= 1
