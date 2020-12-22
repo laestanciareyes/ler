@@ -327,7 +327,8 @@
             <data>                
                 <xpath expr="//field[@name='company_id']" position="after">
                     <field name="solicitud_id" options="{'no_create':True}"/>
-                    <field name="cuota_id" options="{'no_create':True}"/>
+                    <field name="cuota_id" options="{'no_create':True}" context="{'mostrar': 1}"/>
+                    
                 </xpath>
             </data>
         </field>

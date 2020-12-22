@@ -857,6 +857,34 @@ class AgregarCamposPagos(models.Model):
     solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito', help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
     cuota_id = fields.Many2one('solicitudes.credito.lineas.cuotas','Cuota', help='Seleccione una cuota del cliente o deje en blanco en caso que sea compra sin crédito')
     
+    def name_get(self):
+        
+        _logger.info('************************************************ NAMEGET FACTURA ***************************************')
+        
+        
+        result = []
+        partner = -2
+        if not self.partner_id.id:
+            partner=-2
+        else:
+            partner = self.partner_id.id
+            
+        qry = "SELECT id, name, cuotanumero from solicitudes_credito_lineas_cuotas where cliente_id=" + str(partner) + " order by cuotanumero"
+        
+        self.env.cr.execute(qry)
+        #self.deadline = env.cr.fetchone()[0]
+        registros= self.env.cr.fetchall()
+        
+        _logger.info("******** registros *********")
+        _logger.info(len(registros))
+        
+        for record in registros:
+            if self.env.context.get('mostrar', False):
+            # Only goes off when the custom_search is in the context values.
+                result.append((record.id, "{} - ${}".format(record.name, record.montocuota)))
+            else:
+                result.append((record[0], record[1]))
+        return result
     
     
     
