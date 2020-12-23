@@ -869,7 +869,7 @@ class AgregarCamposPagos(models.Model):
         else:
             partner = self.partner_id.id
             
-        qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " order by cuotanumero"
+        qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and b.cuotaestatus='E' order by cuotanumero"
         
         self.env.cr.execute(qry)
         #self.deadline = env.cr.fetchone()[0]
