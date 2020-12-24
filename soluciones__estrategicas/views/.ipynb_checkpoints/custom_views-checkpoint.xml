@@ -340,8 +340,8 @@
         <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
         <field name="arch" type="xml">
             <data>                
-                <xpath expr="//field[@name='communication']" position="after">
-                    <field name="solicitud_id" options="{'no_create':True}"/>
+                <xpath expr="//field[@name='amount']" position="before">
+                    <!--<field name="solicitud_id" options="{'no_create':True}"/>-->
                     <field name="cuota_id" options="{'no_create':True}" context="{'mostrar': 1}"/>
                     
                 </xpath>
