@@ -212,7 +212,9 @@
                             <tree>
                                 <field name="cliente_id" invisible="1"/>
                                 <button name="imprimir_corrida_financiera" string="Imprimir" type="object" class="oe_highlight" />
+
                                 <field name="name"/>
+
                                 <field name="fechasolicitud"/>
                                 <field name="montodesolicitud" widget="monetary"/>
                                 <field name="montoaprobado" widget="monetary"/>

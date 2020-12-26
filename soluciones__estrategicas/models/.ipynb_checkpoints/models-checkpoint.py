@@ -183,6 +183,7 @@ class AgregarCamposPartner(models.Model):
     
     solicitudes_lineas = fields.One2many('solicitudes.credito.lineas','cliente_id')
     
+
     
     @api.onchange('fechadenacimiento')
     def actualizaredad(self):
@@ -208,6 +209,8 @@ class AgregarCamposPartner(models.Model):
         edad+=1   
         self.edad = edad
     
+=======
+
     def imprimir_formulario(self):
         _logger.info("imprimir_formulario_clientes")
 
