@@ -32,12 +32,17 @@
                     <field name="tipodevivienda" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="fechadenacimiento" attrs="{'invisible': [('is_company', '=', True)]}"/>
                     <field name="edad" attrs="{'invisible': [('is_company', '=', True)]}"/>
+
                                               <!--, 'readonly':True}"/>-->
                     
                         <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}" cols="3"/>
                         <!--<span class="oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">%</span>-->
                     
                     <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}" options="{'type': 'number', 'step': 1}"/>
+
+                    <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}"/>
+
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="codigo_anterior"/>
@@ -213,7 +218,10 @@
                                 <field name="cliente_id" invisible="1"/>
                                 <button name="imprimir_corrida_financiera" string="Imprimir" type="object" class="oe_highlight" />
 
+
                                 <field name="name"/>
+
+
 
                                 <field name="fechasolicitud"/>
                                 <field name="montodesolicitud" widget="monetary"/>

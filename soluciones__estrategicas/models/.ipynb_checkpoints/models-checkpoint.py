@@ -53,7 +53,11 @@ class AgregarCamposPartner(models.Model):
     fechadeexpediciondui = fields.Date('Fecha Expedicion DUI')
     fechadeexpiraciondui = fields.Date('Fecha Expiración DUI')
     interes = fields.Float('% Interes','digits(5,2)')
+
     diasdegraciacredito = fields.Integer('Días de gracia (Crédito)', default=0)
+
+    diasdegraciacredito = fields.Integer('Días de gracias (Crédito)', default=0)
+
     codigo_anterior = fields.Char('Código Anterior')
     
     lugardetrabajo = fields.Char('Lugar de Trabajo')
@@ -184,6 +188,7 @@ class AgregarCamposPartner(models.Model):
     solicitudes_lineas = fields.One2many('solicitudes.credito.lineas','cliente_id')
     
 
+
     
     @api.onchange('fechadenacimiento')
     def actualizaredad(self):
@@ -209,7 +214,6 @@ class AgregarCamposPartner(models.Model):
         edad+=1   
         self.edad = edad
     
-=======
 
     def imprimir_formulario(self):
         _logger.info("imprimir_formulario_clientes")
@@ -263,8 +267,12 @@ class SolicitudesCredito(models.Model):
             cuotasaldofinal = cuotasaldoinicial - cuota
             nuevafecha = fecha + timedelta(days=dias)
             fechalimite = nuevafecha + timedelta(days=self.cliente_id.diasdegraciacredito)
+
             nombre = '(' + str(nc+1) + ') - ' + fechalimite.strftime('%d/%m/%Y') + ' - ' + '${:,.2f}'.format(cuota)
             self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite,'name':nombre}) 
+
+            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite}) 
+
             fecha = nuevafecha
             cuotasaldoinicial = cuotasaldofinal
     
