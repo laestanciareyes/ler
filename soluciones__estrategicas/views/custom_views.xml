@@ -36,10 +36,10 @@
                                               <!--, 'readonly':True}"/>-->
                     
                         <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}" cols="3"/>
-                        <!--<span class="oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">%</span>-->
+                        <!--<span class="oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">%</span>
                     
 
-                    <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
+                    <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>-->
 
                     <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}" options="{'type': 'number', 'step': 1}"/>
                 </xpath>
@@ -212,10 +212,10 @@
                 
                 <xpath expr="//page[1]" position="before">
                     <page string="Solicitudes de Crédito" default_focus="1" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="solicitudes_lineas" >
+                        <field name="solicitudes_lineas" string=" Solicitud de Crédito">
                             <tree>
                                 <field name="cliente_id" invisible="1"/>
-                                <!--<button name="imprimir_corrida_financiera" string="Imprimir" type="object" class="oe_highlight" />-->
+                                <button name="imprimir_corrida_financiera" string="Imprimir" type="object" class="oe_highlight" />
 
 
                                 <field name="name" string="Descripción"/>
@@ -237,12 +237,10 @@
                                 
                             </tree>
                             <form string="Solicitudes">
-                                <header>
-                                    <field name="name"/>
-                                </header>
+                                
                                 <group string="Información para Solicitud" col="6" colspan="3">
                                    <!-- <field name="solicitudes_id" invisible="1"/>-->
-                                    
+                                    <field name="name" string="Descripción" colspan="5"/>
                                     <field name="montodesolicitud" widget="monetary"/>
                                     <field name="montoaprobado" widget="monetary"/>
                                     <field name="montoanticipo" widget="monetary"/>
@@ -282,6 +280,7 @@
                                         <field name="cuotamonto" widget="monetary"/>
                                         <field name="cuotasaldofinal" widget="monetary"/>
                                         <field name="cuotamontorecibido" widget="monetary"/>
+                                        <field name="cuotaestatus"/>
                                     </tree>
                                 <!--<group string="Cuotas" attrs="{'invisible': [('estatus', '!=', 'A')]}">-->
                                 <!--    <field name="solicitudes_lineas_cuotas" string="" >
