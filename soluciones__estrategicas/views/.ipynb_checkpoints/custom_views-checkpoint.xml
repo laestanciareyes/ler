@@ -38,11 +38,10 @@
                         <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}" cols="3"/>
                         <!--<span class="oe_inline" attrs="{'invisible': [('is_company', '=', True)]}">%</span>-->
                     
-                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}" options="{'type': 'number', 'step': 1}"/>
 
                     <field name="interes" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}"/>
 
+                    <field name="diasdegraciacredito" attrs="{'invisible': [('is_company', '=', True)]}" options="{'type': 'number', 'step': 1}"/>
                 </xpath>
                 <xpath expr="//field[@name='category_id']" position="after">
                     <field name="codigo_anterior"/>
@@ -53,7 +52,7 @@
                         <field name="dui" attrs="{'invisible': [('is_company', '=', True)]}"/>
                         <field name="fechadeexpediciondui" attrs="{'invisible': [('is_company', '=', True)]}"/>
                         <field name="fechadeexpiraciondui" attrs="{'invisible': [('is_company', '=', True)]}"/>
-                        <field name="nit"/>
+                        <field name="nit" string="N.I.T"/>
                         <field name="nrc"/>
                         <field name="giro"/>
                         <field name="nombrecomercial"/>
@@ -103,108 +102,108 @@
                         <field name="telefonodeljefeinmediatodeconyugue" widget="phone" options="{'enable_sms': True}"/>
                     </group>
                     <group string="Referencia familiar #1" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciafamiliar1"/>
-                        <field name="telefonodereferenciafamiliar1" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciafamiliar1"/>
-                        <field name="relacionreferenciafamiliar1"/>
+                        <field name="nombrereferenciafamiliar1" string="Nombre"/>
+                        <field name="telefonodereferenciafamiliar1" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar1" string="Dirección"/>
+                        <field name="relacionreferenciafamiliar1" string="Relación"/>
                     </group>
                     <group string="Referencia familiar #2" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciafamiliar2"/>
-                        <field name="telefonodereferenciafamiliar2" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciafamiliar2"/>
-                        <field name="relacionreferenciafamiliar2"/>
+                        <field name="nombrereferenciafamiliar2" string="Nombre"/>
+                        <field name="telefonodereferenciafamiliar2" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar2" string="Dirección"/>
+                        <field name="relacionreferenciafamiliar2" string="Relación"/>
                     </group>
                     <group string="Referencia personal #1" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciapersonal1"/>
-                        <field name="telefonodereferenciapersonal1" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciapersonal1"/>
-                        <field name="relacionreferenciapersonal1"/>
+                        <field name="nombrereferenciapersonal1" string="Nombre"/>
+                        <field name="telefonodereferenciapersonal1" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal1" string="Dirección"/>
+                        <field name="relacionreferenciapersonal1" string="Relación"/>
                     </group>
                     <group string="Referencia personal #2" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciapersonal2"/>
-                        <field name="telefonodereferenciapersonal2" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciapersonal2"/>
-                        <field name="relacionreferenciapersonal2"/>
+                        <field name="nombrereferenciapersonal2" string="Nombre"/>
+                        <field name="telefonodereferenciapersonal2" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal2" string="Dirección"/>
+                        <field name="relacionreferenciapersonal2" string="Relación"/>
                     </group>
                                 
                     <group string="CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrecodeudor"/>
-                        <field name="fechadenacimientocodeudor"/>
-                        <field name="edadcodeudor"/>
-                        <field name="telefonofijocodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="telefonocelularcodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="domiciliocodeudor"/>
-                        <field name="tipodeviviendacodeudor"/>
-                        <field name="duicodeudor"/>
-                        <field name="fechadeexpedicionduicodeudor"/>
-                        <field name="fechadeexpiracionduicodeudor"/>
-                        <field name="nitcodeudor"/>
+                        <field name="nombrecodeudor" string="Nombre"/>
+                        <field name="fechadenacimientocodeudor" string="Fecha de Nacimiento"/>
+                        <field name="edadcodeudor" string ="Edad"/>
+                        <field name="telefonofijocodeudor" string="Teléfono Fijo" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="telefonocelularcodeudor" string="Celular" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="domiciliocodeudor" string="Domicilio"/>
+                        <field name="tipodeviviendacodeudor" string="Tipo de Vivienda"/>
+                        <field name="duicodeudor" string="DUI"/>
+                        <field name="fechadeexpedicionduicodeudor" string="Fecha de Expedición"/>
+                        <field name="fechadeexpiracionduicodeudor" string="Fecha de Expiración"/>
+                        <field name="nitcodeudor" string="NIT"/>
                     </group>
                     <group string="Laboral CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="lugardetrabajocodeudor"/>
-                        <field name="direcciondetrabajocodeudor"/>
-                        <field name="jefeinmediatocodeudor"/>
-                        <field name="telefonotrabajocodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="telefonojefeinmediatocodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="ocupacioncodeudor"/>
-                        <field name="salariocodeudor" widget="monetary"/>
-                        <field name="ingresosextrascodeudor"/>
+                        <field name="lugardetrabajocodeudor" string="Lugar de Trabajo"/>
+                        <field name="direcciondetrabajocodeudor" string="Dirección"/>
+                        <field name="jefeinmediatocodeudor" string="Jefe Inmediato"/>
+                        <field name="telefonotrabajocodeudor" string="Teléfono Oficina" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="telefonojefeinmediatocodeudor" string ="Teléfono Jefe Inmediato" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="ocupacioncodeudor" string="Ocupación"/>
+                        <field name="salariocodeudor" string="Salario" widget="monetary"/>
+                        <field name="ingresosextrascodeudor" string="Ingresos Extra"/>
                     </group>
                     <group string="Datos de la Madre CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombredelamadrecodeudor"/>
-                        <field name="telefonodelamadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondelamadrecodeudor"/>
-                        <field name="lugardetrabajodelamadrecodeudor"/>
-                        <field name="direccionlugardetrabajodelamadrecodeudor"/>
-                        <field name="jefeinmediatodelamadrecodeudor"/>
-                        <field name="telefonodeljefeinmediatodelamadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="nombredelamadrecodeudor" string="Nombre de la Madre"/>
+                        <field name="telefonodelamadrecodeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondelamadrecodeudor" string="Dirección"/>
+                        <field name="lugardetrabajodelamadrecodeudor" string="Lugar de Trabajo"/>
+                        <field name="direccionlugardetrabajodelamadrecodeudor" string="Dirección Lugar de Trabajo"/>
+                        <field name="jefeinmediatodelamadrecodeudor" string="Jefe Inmediato"/>
+                        <field name="telefonodeljefeinmediatodelamadrecodeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
                     </group>
                     
                     <group string="Datos del Padre CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombredelpadrecodeudor"/>
-                        <field name="telefonodelpadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondelpadrecodeudor"/>
-                        <field name="lugardetrabajodelpadrecodeudor"/>
-                        <field name="direccionlugardetrabajodelpadrecodeudor"/>
-                        <field name="jefeinmediatodelpadrecodeudor"/>
-                        <field name="telefonodeljefeinmediatodelpadrecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="nombredelpadrecodeudor" string="Nombre"/>
+                        <field name="telefonodelpadrecodeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondelpadrecodeudor" string="Dirección"/>
+                        <field name="lugardetrabajodelpadrecodeudor" string="Lugar de Trabajor"/>
+                        <field name="direccionlugardetrabajodelpadrecodeudor" string="Dirección"/>
+                        <field name="jefeinmediatodelpadrecodeudor" string="Jefe Inmediato"/>
+                        <field name="telefonodeljefeinmediatodelpadrecodeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
                     </group>
                     
                     <group string="Datos de Conyugue CODEUDOR" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombredeconyuguecodeudor"/>
-                        <field name="telefonodeconyuguecodeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondeconyuguecodeudor"/>
-                        <field name="lugardetrabajodeconyuguecodeudor"/>
+                        <field name="nombredeconyuguecodeudor" string="Nombre"/>
+                        <field name="telefonodeconyuguecodeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondeconyuguecodeudor" string="Dirección"/>
+                        <field name="lugardetrabajodeconyuguecodeudor" string="Lugar de Trabajo"/>
                     </group>
                     <group attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="direccionlugardetrabajodeconyuguecodeudor"/>
-                        <field name="jefeinmediatodeconyuguecodeudor"/>
-                        <field name="telefonodeljefeinmediatodeconyuguecodeudor" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direccionlugardetrabajodeconyuguecodeudor" string="Dirección lugar trabajo"/>
+                        <field name="jefeinmediatodeconyuguecodeudor" string="Jefe Inmediato"/>
+                        <field name="telefonodeljefeinmediatodeconyuguecodeudor" string="Teléfono del Jefe" widget="phone" options="{'enable_sms': True}"/>
                     </group>
                     <group string="Referencia familiar CODEUDOR #1" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciafamiliar1codeudor"/>
-                        <field name="telefonodereferenciafamiliar1codeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciafamiliar1codeudor"/>
-                        <field name="relacionreferenciafamiliar1codeudor"/>
+                        <field name="nombrereferenciafamiliar1codeudor" string="Nombre"/>
+                        <field name="telefonodereferenciafamiliar1codeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar1codeudor" string="Dirección" />
+                        <field name="relacionreferenciafamiliar1codeudor" string="Relación"/>
                     </group>
                     <group string="Referencia familiar CODEUDOR #2" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciafamiliar2codeudor"/>
-                        <field name="telefonodereferenciafamiliar2codeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciafamiliar2codeudor"/>
-                        <field name="relacionreferenciafamiliar2codeudor"/>
+                        <field name="nombrereferenciafamiliar2codeudor" string="Nombre"/>
+                        <field name="telefonodereferenciafamiliar2codeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciafamiliar2codeudor" string="Dirección"/>
+                        <field name="relacionreferenciafamiliar2codeudor" string="Relación"/>
                     </group>
                     <group string="Referencia personal CODEUDOR #1" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciapersonal1codeudor"/>
-                        <field name="telefonodereferenciapersonal1codeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciapersonal1codeudor"/>
-                        <field name="relacionreferenciapersonal1codeudor"/>
+                        <field name="nombrereferenciapersonal1codeudor" string="Nombre"/>
+                        <field name="telefonodereferenciapersonal1codeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal1codeudor" string="Dirección"/>
+                        <field name="relacionreferenciapersonal1codeudor" string="Relación"/>
                         <button name="imprimir_formulario" string="Imprimir formulario" type="object" class="oe_highlight" attrs="{'invisible': [('is_company', '=', True)]}"  />
                     </group>
                     <group string="Referencia personal CODEUDOR #2" attrs="{'invisible': [('is_company', '=', True)]}">
-                        <field name="nombrereferenciapersonal2codeudor"/>
-                        <field name="telefonodereferenciapersonal2codeudor" widget="phone" options="{'enable_sms': True}"/>
-                        <field name="direcciondereferenciapersonal2codeudor"/>
-                        <field name="relacionreferenciapersonal2codeudor"/>
+                        <field name="nombrereferenciapersonal2codeudor" string="Nombre"/>
+                        <field name="telefonodereferenciapersonal2codeudor" string="Teléfono" widget="phone" options="{'enable_sms': True}"/>
+                        <field name="direcciondereferenciapersonal2codeudor" string="Dirección"/>
+                        <field name="relacionreferenciapersonal2codeudor" string = "Relación"/>
                     </group>
                     
                     
@@ -272,6 +271,7 @@
                                     <h2>Cuotas</h2>
                                 </group>
 
+
                                 <field name="solicitudes_lineas_cuotas" string="" >
                                     <tree>
                                         <field name="cuotanumero"/>
@@ -282,8 +282,22 @@
                                         <field name="cuotamonto" widget="monetary"/>
                                         <field name="cuotasaldofinal" widget="monetary"/>
                                         <field name="cuotamontorecibido" widget="monetary"/>
-                                        
                                     </tree>
+                                <!--<group string="Cuotas" attrs="{'invisible': [('estatus', '!=', 'A')]}">-->
+                                <!--    <field name="solicitudes_lineas_cuotas" string="" >
+                                        <tree>
+                                            <field name="cuotanumero"/>
+                                            <field name="cuotafecha"/>
+                                            <field name="cuotafechapagada"/>
+                                            <field name="cuotafechalimite"/>
+                                            <field name="cuotasaldoinicial" widget="monetary"/>
+                                            <field name="cuotamonto" widget="monetary"/>
+                                            <field name="cuotasaldofinal" widget="monetary"/>
+                                            <field name="cuotamontorecibido" widget="monetary"/>
+
+                                        
+                                        </tree>
+                                    </field>-->
                                 </field>
                                 
                                     
