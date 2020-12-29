@@ -890,6 +890,24 @@ class AccountPayment(models.Model):
 
     def _prepare_payment_transaction_vals(self):
         self.ensure_one()
+        
+        cuota_id=-2
+        cuota_id = self.cuota_id.id
+            
+        cuotafechapagada = self.payment_date
+        cuotamontorecibido = self.amount
+        qry=""
+            
+        if cuota_id:
+            qry="update solicitudes_credito_lineas_cuotas set cuotaestatus='P', cuotafechapagada='" + str(cuotafechapagada) + "' + cuotamontorecibido=" + str(cuotamontorecibido)+" where id=" + str(cuota_id)
+            
+        _logger.info("******** QRY *********")
+        _logger.info("CUOTA: " + str(cuota_id))
+        _logger.info("Fecha Pagada: " + str(cuotafechapagada))
+        _logger.info("Cuota Monto Recibido: " + str(cuotamontorecibido))
+        _logger.info(qry)
+        
+        
         return {
             'amount': self.amount,
             'currency_id': self.currency_id.id,
@@ -922,19 +940,7 @@ class AccountPayment(models.Model):
             # Link the transaction to the payment.
             pay.payment_transaction_id = transaction
             
-        cuota_id=-2
-        cuota_id = self.cuota_id
-            
-        cuotafechapagada = self.payment_date
-        cuotamontorecibido = self.amount
-        qry=""
-            
-        if cuota_id:
-            qry="update solicitudes_credito_lineas_cuotas set cuotaestatus='P', cuotafechapagada='" + str(cuotafechapagada) + "' + cuotamontorecibido=" + str(cuotamontorecibido)+" where id=" + str(cuota_id)
-            
-        _logger.info("******** QRY *********")
-        _logger.info("CUOTA: " + str(cuota_id))
-        _logger.info(qry)
+        
 
         return transactions
 
@@ -986,6 +992,7 @@ class AccountPayment(models.Model):
             
         qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and a.cuotaestatus='E' order by cuotanumero"
         
+        _logger.info(qry)
         self.env.cr.execute(qry)
         #self.deadline = env.cr.fetchone()[0]
         registros= self.env.cr.fetchall()
