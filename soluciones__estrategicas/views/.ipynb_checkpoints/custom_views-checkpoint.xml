@@ -218,7 +218,7 @@
                                 <!--<button name="imprimir_corrida_financiera" string="Imprimir" type="object" class="oe_highlight" />-->
 
 
-                                <field name="name"/>
+                                <field name="name" string="Descripción"/>
 
 
 
