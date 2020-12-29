@@ -103,7 +103,7 @@ class AgregarCamposPartner(models.Model):
     nombrereferenciafamiliar2 = fields.Char('Nombre Referencia Familiar 2')
     telefonodereferenciafamiliar2 = fields.Char('Teléfono Referencia Familiar 2')
     direcciondereferenciafamiliar2 = fields.Char('Domicilio Referencia Familiar 2')
-    relacionreferenciafamiliar2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 2')
+    relacionreferenciafamiliar2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)')], 'Relación Referencia Familiar 2')
     
     nombrereferenciapersonal1 = fields.Char('Nombre Referencia Personal 1')
     telefonodereferenciapersonal1 = fields.Char('Teléfono Referencia Personal 1')
