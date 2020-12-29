@@ -53,7 +53,11 @@ class AgregarCamposPartner(models.Model):
     fechadeexpediciondui = fields.Date('Fecha Expedicion DUI')
     fechadeexpiraciondui = fields.Date('Fecha Expiración DUI')
     interes = fields.Float('% Interes','digits(5,2)')
+
     diasdegraciacredito = fields.Integer('Días de gracia (Crédito)', default=0)
+
+    diasdegraciacredito = fields.Integer('Días de gracias (Crédito)', default=0)
+
     codigo_anterior = fields.Char('Código Anterior')
     
     lugardetrabajo = fields.Char('Lugar de Trabajo')
@@ -90,99 +94,100 @@ class AgregarCamposPartner(models.Model):
     jefeinmediatodeconyugue = fields.Char('Jefe Inmediato de Conyugue')
     telefonodeljefeinmediatodeconyugue = fields.Char('Telefono del Jefe Inmediato de Conyugue')
     
-    nombrereferenciafamiliar1 = fields.Char('Nombre ')
-    telefonodereferenciafamiliar1 = fields.Char('Teléfono ')
-    direcciondereferenciafamiliar1 = fields.Char('Domicilio ')
+    nombrereferenciafamiliar1 = fields.Char('Nombre Referencia Familiar 1')
+    telefonodereferenciafamiliar1 = fields.Char('Teléfono Referencia Familiar 1')
+    direcciondereferenciafamiliar1 = fields.Char('Domicilio Referencia Familiar 1')
     relacionreferenciafamiliar1 = fields.Selection( [('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')]
-, 'Relación ')
+, 'Relación Referencia Familiar 1')
     
-    nombrereferenciafamiliar2 = fields.Char('Nombre  ')
-    telefonodereferenciafamiliar2 = fields.Char('Teléfono  ')
-    direcciondereferenciafamiliar2 = fields.Char('Domicilio  ')
-    relacionreferenciafamiliar2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación  ')
+    nombrereferenciafamiliar2 = fields.Char('Nombre Referencia Familiar 2')
+    telefonodereferenciafamiliar2 = fields.Char('Teléfono Referencia Familiar 2')
+    direcciondereferenciafamiliar2 = fields.Char('Domicilio Referencia Familiar 2')
+    relacionreferenciafamiliar2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 2')
     
-    nombrereferenciapersonal1 = fields.Char('Nombre    ')
-    telefonodereferenciapersonal1 = fields.Char('Teléfono    ')
-    direcciondereferenciapersonal1 = fields.Char('Domicilio    ')
-    relacionreferenciapersonal1 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación    ')
+    nombrereferenciapersonal1 = fields.Char('Nombre Referencia Personal 1')
+    telefonodereferenciapersonal1 = fields.Char('Teléfono Referencia Personal 1')
+    direcciondereferenciapersonal1 = fields.Char('Domicilio Referencia Personal 1')
+    relacionreferenciapersonal1 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 1')
     
-    nombrereferenciapersonal2 = fields.Char('Nombre     ')
-    telefonodereferenciapersonal2 = fields.Char('Teléfono     ')
-    direcciondereferenciapersonal2 = fields.Char('Domicilio     ')
-    relacionreferenciapersonal2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación     ')
+    nombrereferenciapersonal2 = fields.Char('Nombre Referencia Personal 2')
+    telefonodereferenciapersonal2 = fields.Char('Teléfono Referencia Personal 2')
+    direcciondereferenciapersonal2 = fields.Char('Domicilio Referencia Personal 2')
+    relacionreferenciapersonal2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 2')
     
     
     #codeudor
-    nombrecodeudor = fields.Char('Nombre       ')
+    nombrecodeudor = fields.Char('Nombre Codeudor')
     
     
-    fechadenacimientocodeudor = fields.Date('Fecha de Nacimiento      ')
-    edadcodeudor = fields.Integer('Edad  ')
-    domiciliocodeudor = fields.Char('Domicilio      ')
-    duicodeudor = fields.Char('DUI ')
-    nitcodeudor = fields.Char('NIT ')
-    tipodeviviendacodeudor = fields.Selection([('Propia', 'Propia'), ('Alquilada', 'Alquilada')],'Tipo de Vivienda  ')
+    fechadenacimientocodeudor = fields.Date('Fecha de Nacimiento Codeudor')
+    edadcodeudor = fields.Integer('Edad Codeudor')
+    domiciliocodeudor = fields.Char('Domicilio Codeudor')
+    duicodeudor = fields.Char('DUI Codeudor')
+    nitcodeudor = fields.Char('NIT Codeudor')
+    tipodeviviendacodeudor = fields.Selection([('Propia', 'Propia'), ('Alquilada', 'Alquilada')],'Tipo de Vivienda Codeudor')
     fechadeexpedicionduicodeudor = fields.Date('Fecha Expedicion DUI ')
     fechadeexpiracionduicodeudor = fields.Date('Fecha Expiración DUI ')
     
     
-    lugardetrabajocodeudor = fields.Char('Lugar de Trabajo      ')
-    direcciondetrabajocodeudor = fields.Char('Dirección      ')
-    telefonofijocodeudor = fields.Char('Teléfono Fijo ')
-    telefonocelularcodeudor = fields.Char('Teléfono Celular   ')
-    jefeinmediatocodeudor = fields.Char('Jefe Inmediato      ')
-    telefonotrabajocodeudor = fields.Char('Telefono Trabajo      ')
-    telefonojefeinmediatocodeudor = fields.Char('Teléfono Jefe Inmediato      ')
-    ocupacioncodeudor = fields.Char('Ocupación      ')
-    salariocodeudor = fields.Float('Salario      ')
-    ingresosextrascodeudor = fields.Char('Detalle Ingresos Extras ')
+    lugardetrabajocodeudor = fields.Char('Lugar de Trabajo Codeudor')
+    direcciondetrabajocodeudor = fields.Char('Dirección Codeudor')
+    telefonofijocodeudor = fields.Char('Teléfono Fijo Codeudor')
+    telefonocelularcodeudor = fields.Char('Teléfono Celular Codeudor')
+    jefeinmediatocodeudor = fields.Char('Jefe Inmediato Codeudor')
+    telefonotrabajocodeudor = fields.Char('Telefono Trabajo Codeudor')
+    telefonojefeinmediatocodeudor = fields.Char('Teléfono Jefe Inmediato Codeudor')
+    ocupacioncodeudor = fields.Char('Ocupación Codeudor')
+    salariocodeudor = fields.Float('Salario Codeudor')
+    ingresosextrascodeudor = fields.Char('Detalle Ingresos Extras Codeudor')
 
-    nombredelamadrecodeudor = fields.Char('Nombre de la Madre ')
-    telefonodelamadrecodeudor = fields.Char('Teléfono de la Madre ')
-    direcciondelamadrecodeudor = fields.Char('Dirección de la Madre ')
-    lugardetrabajodelamadrecodeudor = fields.Char('Lugar de Trabajo de la Madre ')
-    direccionlugardetrabajodelamadrecodeudor = fields.Char('Dirección lugar de trabajo de la madre ')
-    jefeinmediatodelamadrecodeudor = fields.Char('Jefe Inmediato de la Madre ')
-    telefonodeljefeinmediatodelamadrecodeudor = fields.Char('Telefono del Jefe Inmediato de la Madre ')
+    nombredelamadrecodeudor = fields.Char('Nombre de la Madre Codeudor')
+    telefonodelamadrecodeudor = fields.Char('Teléfono de la Madre Codeudor')
+    direcciondelamadrecodeudor = fields.Char('Dirección de la Madre Codeudor')
+    lugardetrabajodelamadrecodeudor = fields.Char('Lugar de Trabajo de la Madre Codeudor')
+    direccionlugardetrabajodelamadrecodeudor = fields.Char('Dirección lugar de trabajo de la madre Codeudor')
+    jefeinmediatodelamadrecodeudor = fields.Char('Jefe Inmediato de la Madre Codeudor')
+    telefonodeljefeinmediatodelamadrecodeudor = fields.Char('Telefono del Jefe Inmediato de la Madre Codeudor')
     
-    nombredelpadrecodeudor = fields.Char('Nombre del Padre ')
-    telefonodelpadrecodeudor = fields.Char('Teléfono del Padre ')
-    direcciondelpadrecodeudor = fields.Char('Dirección del Padre ')
-    lugardetrabajodelpadrecodeudor = fields.Char('Lugar de Trabajo del Padre ')
-    direccionlugardetrabajodelpadrecodeudor = fields.Char('Dirección lugar de trabajo del Padre ')
-    jefeinmediatodelpadrecodeudor = fields.Char('Jefe Inmediato del Padre ')
-    telefonodeljefeinmediatodelpadrecodeudor = fields.Char('Telefono del Jefe Inmediato del Padre ')
+    nombredelpadrecodeudor = fields.Char('Nombre del Padre Codeudor')
+    telefonodelpadrecodeudor = fields.Char('Teléfono del Padre Codeudor')
+    direcciondelpadrecodeudor = fields.Char('Dirección del Padre Codeudor')
+    lugardetrabajodelpadrecodeudor = fields.Char('Lugar de Trabajo del Padre Codeudor')
+    direccionlugardetrabajodelpadrecodeudor = fields.Char('Dirección lugar de trabajo del Padre Codeudor')
+    jefeinmediatodelpadrecodeudor = fields.Char('Jefe Inmediato del Padre Codeudor')
+    telefonodeljefeinmediatodelpadrecodeudor = fields.Char('Telefono del Jefe Inmediato del Padre Codeudor')
     
-    nombredeconyuguecodeudor = fields.Char('Nombre de Conyugue       ')
-    telefonodeconyuguecodeudor = fields.Char('Teléfono de Conyugue       ')
-    direcciondeconyuguecodeudor = fields.Char('Dirección de Conyugue       ')
-    lugardetrabajodeconyuguecodeudor = fields.Char('Lugar de Trabajo de Conyugue       ')
-    direccionlugardetrabajodeconyuguecodeudor = fields.Char('Dirección lugar de trabajo de Conyugue       ')
-    jefeinmediatodeconyuguecodeudor = fields.Char('Jefe Inmediato de Conyugue       ')
-    telefonodeljefeinmediatodeconyuguecodeudor = fields.Char('Telefono del Jefe Inmediato de Conyugue       ')
+    nombredeconyuguecodeudor = fields.Char('Nombre de Conyugue Codeudor')
+    telefonodeconyuguecodeudor = fields.Char('Teléfono de Conyugue Codeudor')
+    direcciondeconyuguecodeudor = fields.Char('Dirección de Conyugue Codeudor')
+    lugardetrabajodeconyuguecodeudor = fields.Char('Lugar de Trabajo de Conyugue Codeudor')
+    direccionlugardetrabajodeconyuguecodeudor = fields.Char('Dirección lugar de trabajo de Conyugue Codeudor')
+    jefeinmediatodeconyuguecodeudor = fields.Char('Jefe Inmediato de Conyugue Codeudor')
+    telefonodeljefeinmediatodeconyuguecodeudor = fields.Char('Telefono del Jefe Inmediato de Conyugue Codeudor')
     
-    nombrereferenciafamiliar1codeudor = fields.Char('Nombre        ')
-    telefonodereferenciafamiliar1codeudor = fields.Char('Teléfono        ')
-    direcciondereferenciafamiliar1codeudor = fields.Char('Domicilio        ')
-    relacionreferenciafamiliar1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación        ')
+    nombrereferenciafamiliar1codeudor = fields.Char('Nombre Referencia Familiar 1 Codeudor')
+    telefonodereferenciafamiliar1codeudor = fields.Char('Teléfono Referencia Familiar 1 Codeudor')
+    direcciondereferenciafamiliar1codeudor = fields.Char('Domicilio Referencia Familiar 1 Codeudor')
+    relacionreferenciafamiliar1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 1 Codeudor')
     
-    nombrereferenciafamiliar2codeudor = fields.Char('Nombre         ')
-    telefonodereferenciafamiliar2codeudor = fields.Char('Teléfono         ')
-    direcciondereferenciafamiliar2codeudor = fields.Char('Domicilio         ')
-    relacionreferenciafamiliar2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación         ')
+    nombrereferenciafamiliar2codeudor = fields.Char('Nombre Referencia Familiar 2 Codeudor')
+    telefonodereferenciafamiliar2codeudor = fields.Char('Teléfono Referencia Familiar 2 Codeudor')
+    direcciondereferenciafamiliar2codeudor = fields.Char('Domicilio Referencia Familiar 2 Codeudor')
+    relacionreferenciafamiliar2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 2 Codeudor')
     
-    nombrereferenciapersonal1codeudor = fields.Char('Nombre           ')
-    telefonodereferenciapersonal1codeudor = fields.Char('Teléfono           ')
-    direcciondereferenciapersonal1codeudor = fields.Char('Domicilio           ')
-    relacionreferenciapersonal1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación           ')
+    nombrereferenciapersonal1codeudor = fields.Char('Nombre Referencia Personal 1 Codeudor')
+    telefonodereferenciapersonal1codeudor = fields.Char('Teléfono Referencia Personal 1 Codeudor')
+    direcciondereferenciapersonal1codeudor = fields.Char('Domicilio Referencia Personal 1 Codeudor')
+    relacionreferenciapersonal1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 1 Codeudor')
     
-    nombrereferenciapersonal2codeudor = fields.Char('Nombre            ')
-    telefonodereferenciapersonal2codeudor = fields.Char('Teléfono            ')
-    direcciondereferenciapersonal2codeudor = fields.Char('Domicilio            ')
-    relacionreferenciapersonal2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación            ')
+    nombrereferenciapersonal2codeudor = fields.Char('Nombre Referencia Personal 2 Codeudor')
+    telefonodereferenciapersonal2codeudor = fields.Char('Teléfono Referencia Personal 2 Codeudor')
+    direcciondereferenciapersonal2codeudor = fields.Char('Domicilio Referencia Personal 2 Codeudor')
+    relacionreferenciapersonal2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 2 Codeudor')
     
     solicitudes_lineas = fields.One2many('solicitudes.credito.lineas','cliente_id')
     
+
 
     
     @api.onchange('fechadenacimiento')
@@ -209,7 +214,6 @@ class AgregarCamposPartner(models.Model):
         edad+=1   
         self.edad = edad
     
-=======
 
     def imprimir_formulario(self):
         _logger.info("imprimir_formulario_clientes")
@@ -263,8 +267,12 @@ class SolicitudesCredito(models.Model):
             cuotasaldofinal = cuotasaldoinicial - cuota
             nuevafecha = fecha + timedelta(days=dias)
             fechalimite = nuevafecha + timedelta(days=self.cliente_id.diasdegraciacredito)
+
             nombre = '(' + str(nc+1) + ') - ' + fechalimite.strftime('%d/%m/%Y') + ' - ' + '${:,.2f}'.format(cuota)
             self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite,'name':nombre}) 
+
+            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite}) 
+
             fecha = nuevafecha
             cuotasaldoinicial = cuotasaldofinal
     
@@ -882,6 +890,24 @@ class AccountPayment(models.Model):
 
     def _prepare_payment_transaction_vals(self):
         self.ensure_one()
+        
+        cuota_id=-2
+        cuota_id = self.cuota_id.id
+            
+        cuotafechapagada = self.payment_date
+        cuotamontorecibido = self.amount
+        qry=""
+            
+        if cuota_id:
+            qry="update solicitudes_credito_lineas_cuotas set cuotaestatus='P', cuotafechapagada='" + str(cuotafechapagada) + "' + cuotamontorecibido=" + str(cuotamontorecibido)+" where id=" + str(cuota_id)
+            
+        _logger.info("******** QRY *********")
+        _logger.info("CUOTA: " + str(cuota_id))
+        _logger.info("Fecha Pagada: " + str(cuotafechapagada))
+        _logger.info("Cuota Monto Recibido: " + str(cuotamontorecibido))
+        _logger.info(qry)
+        
+        
         return {
             'amount': self.amount,
             'currency_id': self.currency_id.id,
@@ -914,19 +940,7 @@ class AccountPayment(models.Model):
             # Link the transaction to the payment.
             pay.payment_transaction_id = transaction
             
-        cuota_id=-2
-        cuota_id = self.cuota_id
-            
-        cuotafechapagada = self.payment_date
-        cuotamontorecibido = self.amount
-        qry=""
-            
-        if cuota_id:
-            qry="update solicitudes_credito_lineas_cuotas set cuotaestatus='P', cuotafechapagada='" + str(cuotafechapagada) + "' + cuotamontorecibido=" + str(cuotamontorecibido)+" where id=" + str(cuota_id)
-            
-        _logger.info("******** QRY *********")
-        _logger.info("CUOTA: " + str(cuota_id))
-        _logger.info(qry)
+        
 
         return transactions
 
@@ -978,6 +992,7 @@ class AccountPayment(models.Model):
             
         qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and a.cuotaestatus='E' order by cuotanumero"
         
+        _logger.info(qry)
         self.env.cr.execute(qry)
         #self.deadline = env.cr.fetchone()[0]
         registros= self.env.cr.fetchall()
