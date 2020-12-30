@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="reporte_corrida_financiera_template">
+    <template id="reporte_estado_de_cuenta_template">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.external_layout">
                     <div class="page" align="center">
-                        <center><strong><h3>Corrida Financiera</h3></strong></center>
+                        <center><strong><h3>Estado de Cuenta</h3></strong></center>
                         
                         <p></p>
                         <table width="60%" align="center">
@@ -97,6 +97,8 @@
                                     <th align="center">Fecha Límite de Pago</th>
                                     <th align="center">Saldoo Inicial</th>
                                     <th align="center">Cuota Fija</th>
+                                    <th align="center">Fecha de Pago</th>
+                                    <th align="center">Pago</th>
                                     <th align="center">Saldo Final</th>
                                 </tr>
                                 <t t-foreach="doc" t-as="cuotas">
