@@ -789,38 +789,25 @@ class AgregarCamposFactura(models.Model):
     _inherit = 'account.move'
     
     def _get_solicitudes(self):
-        #partner=999
-        
-        domain =[('id', '=', -1)]
+        domain =[('partner_id', '=', -1)]
         solicitudes_list=[]
         _logger.info('_get_solicitudes domain 4.0 = ')
-        solicitudes_model = self.env['solicitudes.credito.lineas'].search([('cliente_id.id','=',-2),('estatus','=','A')])
-        #_logger.info(self.order.partner_id)
-        #if self._context.get('active_model') == 'sale.order' and self._context.get('active_id', False):
-        #if self._context.get('active_model') == 'sale.order' and self._context.get('active_id', False):
-        #    sale_order = self.env['sale.order'].browse(self._context.get('active_id'))
-        _logger.info('************************************************ partner id **********')
-        _logger.info(self.partner_id.id)
-        _logger.info('************************************************')
-        #domain
-        #partner = self.partner_id.id
-        #self.env.cr.execute("SELECT id from solicitudes_credito_lineas where cliente_id= {}".format(partner))
-        #self.deadline = env.cr.fetchone()[0]
-        #solicitudes_model= self.env.cr.fetchall()
+        solicitudes_model = self.env['solicitudes.credito.lineas'].search([('id','=',-2),('estatus','=','A')])
+     
         
         solicitudes_model = self.env['solicitudes.credito.lineas'].search([('cliente_id.id','=',self.partner_id.id),])
         #,('estatus','=','A')
-        _logger.info('************************************************ each id **********')
+
         for each in solicitudes_model:
             solicitudes_list.append(each[0])
-            _logger.info(each[0])
-        _logger.info('************************************************ fin each id **********')    
+   
         if solicitudes_list:
             domain =[('id', 'in', solicitudes_list)]
-            #_logger.info('_get_solicitudes domain = ' + domain[0] + domain[1])
-        #    return domain
-        _logger.info('_get_solicitudes domain CONTEO = ')
-        _logger.info(len(domain))
+
+
+        if solicitudes_list:
+            domain =[('solicitud_id', 'in', solicitudes_list), ('estatus', '=', 'F')]
+
         return domain
     
     
@@ -863,10 +850,73 @@ class AgregarCamposFactura(models.Model):
     
 class AccountPayment(models.Model):
     _inherit = 'account.payment'
-    _description = 'Campos Adicionales para pagos '
+    
+    
+    def name_get(self):
+        
+        _logger.info('************************************************ NAMEGET FACTURA PAGOS ***************************************')
+        
+        
+        result = []
+        partner = -2
+        if not self.partner_id.id:
+            partner=-2
+        else:
+            partner = self.partner_id.id
+            
+        qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and a.cuotaestatus='E' and b.estatus='F' order by solicitud_id,cuotanumero"
+        
+        _logger.info(qry)
+        self.env.cr.execute(qry)
+        #self.deadline = env.cr.fetchone()[0]
+        registros= self.env.cr.fetchall()
+        
+        _logger.info("******** registros *********")
+        _logger.info(len(registros))
+        
+        for record in registros:
+            if self.env.context.get('mostrar', False):
+            # Only goes off when the custom_search is in the context values.
+                result.append((record.id, "{} - ${}".format(record.name, record.montocuota)))
+                _logger.info("******** THEN *********")
+            else:
+                result.append((record[0], record[1]))
+                _logger.info("******** ELSE *********")
+        return result
+    
+    def get_cuotas_domain(self):
+        domain =[('solicitud_id', '=', -1)]
+        solicitudes_list=[]
+        _logger.info('>>>>>>>>>>>>>>>>>>>>>>>_get_solicitudes domain 5.0 = <<<<<<<<<<<<<<<<<')
+        solicitudes_model = self.env['solicitudes.credito.lineas'].search([('id','=',-2),('estatus','=','F')])
+        #_logger.info(self.order.partner_id)
+        #if self._context.get('active_model') == 'sale.order' and self._context.get('active_id', False):
+        _logger.info('<<<<<<<<<<<<<<<<< active >>>>>>>>>>><')
+        _logger.info(self._context.get('active_model'))
+        _logger.info(self._context.get('active_id', False))
+        
+        if self._context.get('active_model') == 'account.move' and self._context.get('active_id', False):
+            pago = self.env['account.move'].browse(self._context.get('active_id'))
+            _logger.info('******************PARTNER DE PAGOS******************************')
+            _logger.info(pago.partner_id.id)
+            _logger.info('****************************************************************')
+
+            solicitudes_model = self.env['solicitudes.credito.lineas'].search([('id','=',pago.solicitud_id.id),('estatus','=','F')])
+            #,('estatus','=','A')
+        for each in solicitudes_model:
+            solicitudes_list.append(each.id)
+        if solicitudes_list:
+            domain =[('solicitud_id', 'in', solicitudes_list),('cuotaestatus','=','E')]
+            #_logger.info('_get_solicitudes domain = ' + domain[0] + domain[1])
+            #    return domain
+        _logger.info('_get_solicitudes_PAGO domain CONTEO = ')
+        _logger.info(domain)
+        return domain
     
     solicitud_id = fields.Many2one('solicitudes.credito.lineas','Solicitud de Crédito', help='Seleccione una solicitud del cliente o deje en blanco en caso que sea compra sin crédito')
-    cuota_id = fields.Many2one('solicitudes.credito.lineas.cuotas','Cuota', help='Seleccione una cuota del cliente o deje en blanco en caso que sea compra sin crédito')
+    cuota_id = fields.Many2one('solicitudes.credito.lineas.cuotas','Cuota',domain=get_cuotas_domain, help='Seleccione una cuota del cliente o deje en blanco en caso que sea compra sin crédito')
+    
+    
     
     
     def _get_payment_chatter_link(self):
@@ -983,37 +1033,7 @@ class AccountPayment(models.Model):
     
     
     
-    def name_get(self):
-        
-        _logger.info('************************************************ NAMEGET FACTURA PAGOS ***************************************')
-        
-        
-        result = []
-        partner = -2
-        if not self.partner_id.id:
-            partner=-2
-        else:
-            partner = self.partner_id.id
-            
-        qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and a.cuotaestatus='E' and b.estatus='F' order by solicitud_id,cuotanumero"
-        
-        _logger.info(qry)
-        self.env.cr.execute(qry)
-        #self.deadline = env.cr.fetchone()[0]
-        registros= self.env.cr.fetchall()
-        
-        _logger.info("******** registros *********")
-        _logger.info(len(registros))
-        
-        for record in registros:
-            if self.env.context.get('mostrar', False):
-            # Only goes off when the custom_search is in the context values.
-                result.append((record.id, "{} - ${}".format(record.name, record.montocuota)))
-                _logger.info("******** THEN *********")
-            else:
-                result.append((record[0], record[1]))
-                _logger.info("******** ELSE *********")
-        return result
+    
     
     
     
