@@ -322,7 +322,24 @@
                                                 </td>
 
                                             </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    <strong>El comprador declara bajo juramento que toda la información proporcionada es verídica, por lo que se somete a cualquier investigación del caso.</strong> 
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><p> </p></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><p> </p></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">Firma:____________________________________</td>
+                                            </tr>
+                                            
                                         </table>
+                                    
 
                                     <!--</div>-->
                                     <p></p>
@@ -618,6 +635,21 @@
                                                     Relación: <u><t t-esc="doc.relacionreferenciapersonal2codeudor"/></u> 
                                                 </td>
 
+                                            </tr>
+                                            <tr height="40px">
+                                                <td colspan="3">
+                                                    <strong>El codeudor solidario declara bajo juramento que toda la información proporcionada es verídica, por lo que se somete a cualquier investigación del caso.</strong> 
+                                                </td>
+
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><p> </p></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"><p> </p></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3">Firma:____________________________________</td>
                                             </tr>
                                         </table>
 
