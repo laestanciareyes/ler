@@ -10,6 +10,28 @@
                         <p></p>
                         <table width="60%" align="center">
                             <tr>
+                                
+                                <td colspan="4">
+                                    Cliente: <t t-esc="doc.cliente_id.name" />
+                                </td>
+                                  
+                            </tr>
+                            <tr>
+                                
+                                <td colspan="4">
+                                    Descripción: <t t-esc="doc.name" />
+                                </td>
+                            </tr>
+                            <tr>
+                                
+                                <td colspan="2">
+                                    Fecha Solicitud: <t t-esc="doc.fechasolicitud" t-options="{'widget':'date', 'format': 'dd/MM/yyyy'}" />
+                                </td>
+                                <!--<td colspan="2" align="right">
+                                    Estatus: <t t-esc="doc.estatus" />
+                                </td>-->
+                            </tr>
+                            <tr>
                                 <td width="25%">
                                     Monto Prestado: 
                                 </td>
