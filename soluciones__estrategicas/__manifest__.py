@@ -29,6 +29,7 @@
         'reports/solicitud_cliente.xml',
         #'reports/reporte_corrida_financiera.xml',
         'reports/corrida_financiera.xml',
+        'reports/estado_de_cuenta.xml',
         
         #'views/templates.xml',
         

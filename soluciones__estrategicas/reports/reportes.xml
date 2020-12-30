@@ -19,6 +19,15 @@
             file="soluciones__estrategicas.corrida_financiera"
             print_report_name="'CORRIDA FINANCIERA %s' % (object.id)"
             />
+    <report
+            id="reporte_estado_de_cuenta"
+            string="Estado de Cuenta"
+            model="solicitudes.credito.lineas"
+            report_type="qweb-html"
+            name="soluciones__estrategicas.reporte_estado_de_cuenta_template"
+            file="soluciones__estrategicas.estado_de_cuenta"
+            print_report_name="'ESTADO DE CUENTA - %s' % (object.id)"
+            />
     
     
 </odoo>
