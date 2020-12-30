@@ -97,23 +97,23 @@ class AgregarCamposPartner(models.Model):
     nombrereferenciafamiliar1 = fields.Char('Nombre Referencia Familiar 1')
     telefonodereferenciafamiliar1 = fields.Char('Teléfono Referencia Familiar 1')
     direcciondereferenciafamiliar1 = fields.Char('Domicilio Referencia Familiar 1')
-    relacionreferenciafamiliar1 = fields.Selection( [('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')]
+    relacionreferenciafamiliar1 = fields.Selection( [('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')]
 , 'Relación Referencia Familiar 1')
     
     nombrereferenciafamiliar2 = fields.Char('Nombre Referencia Familiar 2')
     telefonodereferenciafamiliar2 = fields.Char('Teléfono Referencia Familiar 2')
     direcciondereferenciafamiliar2 = fields.Char('Domicilio Referencia Familiar 2')
-    relacionreferenciafamiliar2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 2')
+    relacionreferenciafamiliar2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Familiar 2')
     
     nombrereferenciapersonal1 = fields.Char('Nombre Referencia Personal 1')
     telefonodereferenciapersonal1 = fields.Char('Teléfono Referencia Personal 1')
     direcciondereferenciapersonal1 = fields.Char('Domicilio Referencia Personal 1')
-    relacionreferenciapersonal1 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 1')
+    relacionreferenciapersonal1 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Personal 1')
     
     nombrereferenciapersonal2 = fields.Char('Nombre Referencia Personal 2')
     telefonodereferenciapersonal2 = fields.Char('Teléfono Referencia Personal 2')
     direcciondereferenciapersonal2 = fields.Char('Domicilio Referencia Personal 2')
-    relacionreferenciapersonal2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 2')
+    relacionreferenciapersonal2 = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Personal 2')
     
     
     #codeudor
@@ -168,22 +168,22 @@ class AgregarCamposPartner(models.Model):
     nombrereferenciafamiliar1codeudor = fields.Char('Nombre Referencia Familiar 1 Codeudor')
     telefonodereferenciafamiliar1codeudor = fields.Char('Teléfono Referencia Familiar 1 Codeudor')
     direcciondereferenciafamiliar1codeudor = fields.Char('Domicilio Referencia Familiar 1 Codeudor')
-    relacionreferenciafamiliar1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 1 Codeudor')
+    relacionreferenciafamiliar1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Familiar 1 Codeudor')
     
     nombrereferenciafamiliar2codeudor = fields.Char('Nombre Referencia Familiar 2 Codeudor')
     telefonodereferenciafamiliar2codeudor = fields.Char('Teléfono Referencia Familiar 2 Codeudor')
     direcciondereferenciafamiliar2codeudor = fields.Char('Domicilio Referencia Familiar 2 Codeudor')
-    relacionreferenciafamiliar2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Familiar 2 Codeudor')
+    relacionreferenciafamiliar2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Familiar 2 Codeudor')
     
     nombrereferenciapersonal1codeudor = fields.Char('Nombre Referencia Personal 1 Codeudor')
     telefonodereferenciapersonal1codeudor = fields.Char('Teléfono Referencia Personal 1 Codeudor')
     direcciondereferenciapersonal1codeudor = fields.Char('Domicilio Referencia Personal 1 Codeudor')
-    relacionreferenciapersonal1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 1 Codeudor')
+    relacionreferenciapersonal1codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Personal 1 Codeudor')
     
     nombrereferenciapersonal2codeudor = fields.Char('Nombre Referencia Personal 2 Codeudor')
     telefonodereferenciapersonal2codeudor = fields.Char('Teléfono Referencia Personal 2 Codeudor')
     direcciondereferenciapersonal2codeudor = fields.Char('Domicilio Referencia Personal 2 Codeudor')
-    relacionreferenciapersonal2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)')], 'Relación Referencia Personal 2 Codeudor')
+    relacionreferenciapersonal2codeudor = fields.Selection([('1','Padre'), ('2','Madre'), ('3','Hermano(a)'), ('4','Primo(a)'), ('5','Amigo(a)'), ('6','Cuñado(a)'), ('7','Abuelo(a)'), ('8','Compañero(a) Trabajo'), ('9','Esposo(a)'), ('10','Compañero(a) de vida'), ('11','Tio(a)'),('12','Hijo(a)'),('13','Yerno'),('14','Sobrino(a)'),('15','Nuera'),('16','Suegro(a)'),('17','Nieto(a)'),('18','Jefe(a)'),('19','Hijastro(a)'),('20','Comadre'),('21','Compadre')], 'Relación Referencia Personal 2 Codeudor')
     
     solicitudes_lineas = fields.One2many('solicitudes.credito.lineas','cliente_id')
     
@@ -271,7 +271,7 @@ class SolicitudesCredito(models.Model):
             nombre = '(' + str(nc+1) + ') - ' + fechalimite.strftime('%d/%m/%Y') + ' - ' + '${:,.2f}'.format(cuota)
             self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite,'name':nombre}) 
 
-            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite}) 
+            
 
             fecha = nuevafecha
             cuotasaldoinicial = cuotasaldofinal
