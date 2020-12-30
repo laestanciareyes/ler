@@ -891,21 +891,7 @@ class AccountPayment(models.Model):
     def _prepare_payment_transaction_vals(self):
         self.ensure_one()
         
-        cuota_id=-2
-        cuota_id = self.cuota_id.id
-            
-        cuotafechapagada = self.payment_date
-        cuotamontorecibido = self.amount
-        qry=""
-            
-        if cuota_id:
-            qry="update solicitudes_credito_lineas_cuotas set cuotaestatus='P', cuotafechapagada='" + str(cuotafechapagada) + "' + cuotamontorecibido=" + str(cuotamontorecibido)+" where id=" + str(cuota_id)
-            
-        _logger.info("******** QRY *********")
-        _logger.info("CUOTA: " + str(cuota_id))
-        _logger.info("Fecha Pagada: " + str(cuotafechapagada))
-        _logger.info("Cuota Monto Recibido: " + str(cuotamontorecibido))
-        _logger.info(qry)
+        
         
         
         return {
@@ -973,6 +959,25 @@ class AccountPayment(models.Model):
         res = super(AccountPayment, self - payments_need_trans).post()
 
         transactions.s2s_do_transaction()
+        
+        cuota_id=-2
+        cuota_id = self.cuota_id.id
+            
+        cuotafechapagada = self.payment_date
+        cuotamontorecibido = self.amount
+        qry=""
+            
+        if cuota_id:
+            qry="update solicitudes_credito_lineas_cuotas set cuotaestatus='P', cuotafechapagada='" + str(cuotafechapagada) + "', cuotamontorecibido=" + str(cuotamontorecibido)+" where id=" + str(cuota_id)
+            self.env.cr.execute(qry)
+            
+        _logger.info("******** QRY *********")
+        _logger.info("CUOTA: " + str(cuota_id))
+        _logger.info("Fecha Pagada: " + str(cuotafechapagada))
+        _logger.info("Cuota Monto Recibido: " + str(cuotamontorecibido))
+        _logger.info(qry)
+        _logger.info("**********************************************")
+        
 
         return res
     
@@ -980,7 +985,7 @@ class AccountPayment(models.Model):
     
     def name_get(self):
         
-        _logger.info('************************************************ NAMEGET FACTURA ***************************************')
+        _logger.info('************************************************ NAMEGET FACTURA PAGOS ***************************************')
         
         
         result = []
@@ -990,7 +995,7 @@ class AccountPayment(models.Model):
         else:
             partner = self.partner_id.id
             
-        qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and a.cuotaestatus='E' order by cuotanumero"
+        qry = "SELECT a.id, a.name, a.cuotanumero from solicitudes_credito_lineas_cuotas a inner join solicitudes_credito_lineas b on b.id = a.solicitud_id where b.cliente_id=" + str(partner) + " and a.cuotaestatus='E' and b.estatus='F' order by solicitud_id,cuotanumero"
         
         _logger.info(qry)
         self.env.cr.execute(qry)
@@ -1004,8 +1009,10 @@ class AccountPayment(models.Model):
             if self.env.context.get('mostrar', False):
             # Only goes off when the custom_search is in the context values.
                 result.append((record.id, "{} - ${}".format(record.name, record.montocuota)))
+                _logger.info("******** THEN *********")
             else:
                 result.append((record[0], record[1]))
+                _logger.info("******** ELSE *********")
         return result
     
     
