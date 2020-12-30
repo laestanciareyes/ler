@@ -271,7 +271,7 @@ class SolicitudesCredito(models.Model):
             nombre = '(' + str(nc+1) + ') - ' + fechalimite.strftime('%d/%m/%Y') + ' - ' + '${:,.2f}'.format(cuota)
             self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite,'name':nombre}) 
 
-            self.env['solicitudes.credito.lineas.cuotas'].create({'solicitud_id': self.id,'cuotanumero': nc+1, 'cuotafecha':nuevafecha,'cuotafechapagada':nuevafecha,'cuotasaldoinicial':cuotasaldoinicial, 'cuotamonto':cuota,'cuotasaldofinal':cuotasaldofinal, 'cuotamontorecibido':0,'cuotaestatus':'E','cuotafechalimite':fechalimite}) 
+            
 
             fecha = nuevafecha
             cuotasaldoinicial = cuotasaldofinal
