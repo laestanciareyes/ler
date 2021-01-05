@@ -295,7 +295,14 @@ class SolicitudesCreditoCuotas(models.Model):
     cuotaestatus = fields.Selection([('E', 'Pendiente'), ('P', 'Pagada')],'Estatus')
     pago_id = fields.One2many('account.payment','cuota_id')
     
-    
+    @api.model
+    def calcular_interes_por_mora(self):
+        _logger.info("*.*.*.*.*.*.*.*.*.*.*.*.*.*.*.*. Calculando Interes por mora del día *.*.*.*.*.*.*.*.*.*.*.*.*.*.")
+        
+        for registro in self:
+            _logger.info("Lineas --------->")
+            _logger.info("Solicitud: %", registro.solicitud_id.id)
+            _logger.info("Cuota: %", registro.cuotanumero)
         
 
 #################################

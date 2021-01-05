@@ -30,6 +30,7 @@
         #'reports/reporte_corrida_financiera.xml',
         'reports/corrida_financiera.xml',
         'reports/estado_de_cuenta.xml',
+        'data/cron.xml',
         
         #'views/templates.xml',
         
